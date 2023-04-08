@@ -1,0 +1,15 @@
+class LLQueue(SinglyLinkedList):
+    def __init__(self):
+        super().__init__()
+
+    def enqueue(self, node):
+        self.insert_tail(node)
+
+    def dequeue(self):
+        return self.remove_head()
+
+    def insert_head(self, node):
+        pass
+
+    def remove_tail(self):
+        pass

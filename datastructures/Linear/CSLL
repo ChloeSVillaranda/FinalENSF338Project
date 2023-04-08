@@ -1,0 +1,128 @@
+class CSNode:
+    def __init__(self, data=None, next_node=None):
+        self.data = data
+        self.next = next_node
+
+class CircularSinglyLinkedList:
+    def __init__(self, head=None):
+        self.head = head
+        if head:
+            head.next = head
+        self.size = 0
+
+    def __len__(self):
+        return self.size
+
+    def insert_head(self, node):
+        if not self.head:
+            self.head = node
+            node.next = node
+        else:
+            node.next = self.head.next
+            self.head.next = node
+        self.size += 1
+
+    def insert_tail(self, node):
+        self.insert_head(node)
+        self.head = self.head.next
+
+    def insert(self, node, position):
+        if position <= 0:
+            self.insert_head(node)
+        elif position >= len(self):
+            self.insert_tail(node)
+        else:
+            current = self.head
+            for i in range(position-1):
+                current = current.next
+            node.next = current.next
+            current.next = node
+            self.size += 1
+
+    def sorted_insert(self, node):
+        if not self.head:
+            self.insert_head(node)
+        elif node.data < self.head.data:
+            self.insert_head(node)
+        else:
+            current = self.head
+            while current.next != self.head and current.next.data < node.data:
+                current = current.next
+            node.next = current.next
+            current.next = node
+            self.size += 1
+
+    def search(self, node):
+        current = self.head
+        for i in range(len(self)):
+            if current.data == node.data:
+                return current
+            current = current.next
+        return None
+
+    def delete_head(self):
+        if not self.head:
+            return
+        elif len(self) == 1:
+            self.head = None
+        else:
+            self.head.next = self.head.next.next
+        self.size -= 1
+
+    def delete_tail(self):
+        if not self.head:
+            return
+        elif len(self) == 1:
+            self.head = None
+        else:
+            current = self.head
+            while current.next.next != self.head:
+                current = current.next
+            current.next = self.head
+            self.head = current
+        self.size -= 1
+
+    def delete(self, node):
+        if not self.head:
+            return
+        elif self.head.data == node.data:
+            self.delete_head()
+        else:
+            current = self.head
+            while current.next != self.head and current.next.data != node.data:
+                current = current.next
+            if current.next.data == node.data:
+                current.next = current.next.next
+                self.size -= 1
+
+    def sort(self):
+        if not self.head:
+            return
+        current = self.head
+        for i in range(len(self)):
+            current = current.next
+            for j in range(i):
+                if current.data < current.next.data:
+                    current.data, current.next.data = current.next.data, current.data
+                current = current.next
+
+    def clear(self):
+        self.head = None
+        self.size = 0
+
+    def print(self):
+        print("List length:", len(self))
+        print("Sorted status:", self.is_sorted())
+        print("List content:")
+        if not self.head:
+            print("Empty")
+        else:
+            current = self.head
+            for i in range(len(self)):
+                print(current.data)
+                current = current.next
+
+    def is_sorted(self):
+        if not self.head:
+            return True
+        current = self.head

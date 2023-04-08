@@ -1,0 +1,27 @@
+class LLStack(SinglyLL):
+    def __init__(self):
+        super().__init__()
+
+    def push(self, data):
+        self.insert_head(data)
+
+    def pop(self):
+        if self.head is None:
+            return None
+        else:
+            data = self.head.data
+            self.delete_head()
+            return data
+
+    def peek(self):
+        if self.head is None:
+            return None
+        else:
+            return self.head.data
+
+    # Override methods that are not applicable to stacks with empty body
+    def insert_tail(self, data):
+        pass
+
+    def delete_tail(self):
+        pass
