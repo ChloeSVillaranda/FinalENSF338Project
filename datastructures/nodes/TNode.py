@@ -1,21 +1,58 @@
-# - TNode:
-# This class is a general tree node class that has requirements for both BST and AVL trees. In the
-# node sub-library, add the implementation of the tree node
-# Member variables of this class are:
-# o Int data member
-# o Tnode left
-# o Tnode right
-# o Tnode parent
-# o Int balance
-# The class must implement all needed:
-# o Setters
-# o Getters
-# o print: prints the node information to console in a user friendly format
-# o toString: returns the data member as a string (will be used for the tree prints)
-# o constructors:
-# ▪ TNode(): a default constructor without arguments that initializes
-# members to default values.
-# ▪ TNode(int data, int balance, TNode P, TNode L, TNode R): An overload
-# constructor that takes an integer data, an integer balance to initialize the
-# data and balance members. Initializes the parent using the P argument, L
-# to initialize left child, and R to initialize right child
+class TNode:
+
+# CONSTRUCTORS
+
+    def __init__(self, data, L, R, P, balance):
+        self.data = data 
+        self.left = L
+        self.right = R 
+        self.parent = P 
+        self.balance = balance
+
+    def __init__(self):
+        self.data = None 
+        self.left = None
+        self.right = None 
+        self.parent = None 
+        self.balance = None
+
+# GETTERS
+    def get_data(self):
+        return self.data
+    
+    def get_left(self):
+        return self.left
+    
+    def get_right(self):
+        return self.right
+    
+    def get_parent(self):
+        return self.parent
+    
+    def get_balance(self):
+        return self.balance
+    
+# SETTERS
+    def set_data(self, value):
+        self.data = value
+    
+    def set_left(self, value):
+        self.left = value
+    
+    def set_right(self, value):
+        self.right = value
+    
+    def set_parent(self, value):
+        self.parent = value
+    
+    def set_balance(self, value):
+        self.balance = value
+
+# METHODS 
+    def print(self):
+        print(f"Node Information:\n Data: {self.data} \n Left Child: {self.left} \n Right Child: {self.right} \n Parent: {self.parent} \n Balance: {self.balance}")
+
+    def to_string(self):
+        return str(self.data)
+
+
