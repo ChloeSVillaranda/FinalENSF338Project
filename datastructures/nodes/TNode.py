@@ -1,20 +1,13 @@
-class TNode:
+class TNode(object):
 
 # CONSTRUCTORS
 
-    def __init__(self, data, L, R, P, balance):
+    def __init__(self, data=None, L=None, R=None, P=None, balance=None):
         self.data = data 
         self.left = L
         self.right = R 
         self.parent = P 
         self.balance = balance
-
-    def __init__(self):
-        self.data = None 
-        self.left = None
-        self.right = None 
-        self.parent = None 
-        self.balance = None
 
 # GETTERS
     def get_data(self):
