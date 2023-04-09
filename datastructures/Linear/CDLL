@@ -112,8 +112,8 @@ class CircularDoublyLinkedList(DoublyLinkedList):
         self.size -= 1
 
     def sort(self):
-    if self.size <= 1:
-        return
+        if self.size <= 1:
+            return
 
     current = self.head.next
     while current is not self.head:
