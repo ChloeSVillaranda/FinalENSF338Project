@@ -1,15 +1,38 @@
-class LLQueue(SinglyLinkedList):
+class LLQueue:
     def __init__(self):
-        super().__init__()
+        self.head = None
+        self.tail = None
+        self.length = 0
 
-    def enqueue(self, node):
-        self.insert_tail(node)
+    def enque(self, value):
+        node = Node(value)
+        if self.tail:
+            self.tail.next = node
+            self.tail = node
+        else:
+            self.head = node
+            self.tail = node
+        self.length += 1
 
     def dequeue(self):
-        return self.remove_head()
+        if not self.head:
+            return None
+        value = self.head.value
+        self.head = self.head.next
+        if not self.head:
+            self.tail = None
+        self.length -= 1
+        return value
 
+    def size(self):
+        return self.length
+
+    # override any methods that do not apply to queue behavior with empty body
     def insert_head(self, node):
         pass
 
-    def remove_tail(self):
+    def insert_after(self, prev_node, node):
+        pass
+
+    def delete_node(self, key):
         pass

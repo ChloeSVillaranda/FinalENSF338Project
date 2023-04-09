@@ -1,7 +1,7 @@
+
 class TNode(object):
 
-# CONSTRUCTORS
-
+ # CONSTRUCTOR
     def __init__(self, data=None, L=None, R=None, P=None, balance=None):
         self.data = data 
         self.left = L
@@ -9,7 +9,7 @@ class TNode(object):
         self.parent = P 
         self.balance = balance
 
-# GETTERS
+  # GETTERS
     def get_data(self):
         return self.data
     
@@ -24,8 +24,8 @@ class TNode(object):
     
     def get_balance(self):
         return self.balance
-    
-# SETTERS
+
+  # SETTERS
     def set_data(self, value):
         self.data = value
     
@@ -47,5 +47,4 @@ class TNode(object):
 
     def to_string(self):
         return str(self.data)
-
 
