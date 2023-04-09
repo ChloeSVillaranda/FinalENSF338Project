@@ -1,27 +1,27 @@
-class LLStack(SinglyLL):
+class LLStack(SinglyLinkedList):
     def __init__(self):
         super().__init__()
-
+    
     def push(self, data):
-        self.insert_head(data)
-
+        super().insert_head(data)
+    
     def pop(self):
-        if self.head is None:
+        if self.is_empty():
             return None
         else:
             data = self.head.data
             self.delete_head()
             return data
-
+    
     def peek(self):
-        if self.head is None:
+        if self.is_empty():
             return None
         else:
             return self.head.data
-
-    # Override methods that are not applicable to stacks with empty body
+    
+    def is_empty(self):
+        return super().is_empty()
+    
+    # Override any methods from SinglyLinkedList that don't apply to stacks with empty body methods
     def insert_tail(self, data):
-        pass
-
-    def delete_tail(self):
         pass
