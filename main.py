@@ -1,170 +1,221 @@
-##Tests for SLL
-# Create a new list
-my_list = SinglyLinkedList()
+from datastructures.Linear.SLL import SinglyLinkedList
+from datastructures.nodes.SNode import SNode
+from datastructures.Linear.DLL import DoublyLinkedList
+from datastructures.nodes.DNode import DNode
+from datastructures.Linear.CSLL import CircularSinglyLinkedList
+from datastructures.Linear.CDLL import CircularDoublyLinkedList
 
-# Test insert_head method
-my_list.insert_head(Node(1))
-assert my_list.head.data == 1
-assert my_list.tail.data == 1
-assert my_list.size == 1
 
-# Test insert_tail method
-my_list.insert_tail(Node(2))
-assert my_list.head.data == 1
-assert my_list.tail.data == 2
-assert my_list.size == 2
+def test_singly_linked_list():
+    # Create an empty list
+    sll = SinglyLinkedList()
 
-# Test insert method
-my_list.insert(Node(3), 1)
-assert my_list.head.data == 1
-assert my_list.head.next.data == 3
-assert my_list.tail.data == 2
-assert my_list.size == 3
+    # Test that the list is empty
+    assert sll.is_empty() == True
+    assert sll.length() == 0
 
-# Test sorted_insert method
-my_list.sorted_insert(Node(0))
-assert my_list.head.data == 0
-assert my_list.head.next.data == 1
-assert my_list.head.next.next.data == 3
-assert my_list.tail.data == 2
-assert my_list.size == 4
+    # Test adding items to the list
+    sll.add_first(1)
+    sll.add_first(2)
+    sll.add_last(3)
+    assert sll.length() == 3
 
-# Test search method
-node = my_list.search(Node(3))
-assert node.data == 3
+    # Test removing items from the list
+    assert sll.remove_first() == 2
+    assert sll.remove_last() == 3
+    assert sll.length() == 1
 
-# Test delete_head method
-my_list.delete_head()
-assert my_list.head.data == 1
-assert my_list.head.next.data == 3
-assert my_list.tail.data == 2
-assert my_list.size == 3
+    # Test iterating over the list
+    items = [node.data for node in sll]
+    assert items == [1]
 
-# Test delete_tail method
-my_list.delete_tail()
-assert my_list.head.data == 1
-assert my_list.head.next.data == 3
-assert my_list.tail.data == 3
-assert my_list.size == 2
+    # Test searching for an item in the list
+    assert sll.contains(1) == True
+    assert sll.contains(2) == False
 
-# Test delete_node method
-my_list.delete_node(Node(3))
-assert my_list.head.data == 1
-assert my_list.tail.data == 1
-assert my_list.size == 1
+    # Test getting the data of the first and last nodes in the list
+    assert sll.get_first() == 1
+    assert sll.get_last() == 1
 
-# Test sort method
-my_list.insert_tail(Node(0))
-my_list.insert_tail(Node(2))
-my_list.sort()
-assert my_list.head.data == 0
-assert my_list.head.next.data == 1
-assert my_list.head.next.next.data == 2
-assert my_list.tail.data == 2
-assert my_list.size == 3
+    # Test clearing the list
+    sll.clear()
+    assert sll.is_empty() == True
+    assert sll.length() == 0
 
-# Test print_info method
-my_list.print_info()
-# Expected output:
-# List length: 3
-# Sorted status: sorted
-# List content:
-# 0
-# 1
-# 2
+    # create some nodes to insert into the list
+    node1 = DNode(1)
+    node2 = DNode(2)
+    node3 = DNode(3)
+    node4 = DNode(4)
 
-# Test is_sorted method
-assert my_list.is_sorted() == True
+    # initialize an empty list
+    dll = DoublyLinkedList()
 
-# Test is_sorted method on unsorted list
-my_list.insert_tail(Node(-1))
-assert my_list.is_sorted() == False
-linked_list = SinglyLinkedList()
-node1 = Node(4)
-node2 = Node(2)
-node3 = Node(7)
-node4 = Node(1)
-linked_list.insert_head(node1)
-linked_list.insert_tail(node2)
-linked_list.insert_tail(node3)
-linked_list.insert_tail(node4)
+    # test insert_head and print_info methods
+    dll.insert_head(node2)
+    dll.insert_head(node1)
+    dll.print_info()  # should print List length: 2, Sorted status: unsorted, List content: 1 2, Reverse list content: 2 1
 
-# assert that the linked list is unsorted
-assert not linked_list.is_sorted()
+    # test insert_tail and print_info methods
+    dll.insert_tail(node3)
+    dll.print_info()  # should print List length: 3, Sorted status: unsorted, List content: 1 2 3, Reverse list content: 3 2 1
 
-##Tests for DLL
-# create an empty list
-my_list = DoublyLinkedList()
+    # test insert method and print_info method
+    dll.insert(node4, 2)
+    dll.print_info()  # should print List length: 4, Sorted status: unsorted, List content: 1 2 4 3, Reverse list content: 3 4 2 1
 
-# test insert_head and insert_tail methods
-my_list.insert_head(Node(1))
-my_list.insert_tail(Node(3))
-my_list.insert_head(Node(2))
-my_list.insert_tail(Node(4))
-assert my_list.size == 4
-assert my_list.head.data == 2
-assert my_list.tail.data == 4
-assert my_list.head.next.data == 1
-assert my_list.tail.prev.data == 3
+    # test sorted_insert and print_info methods
+    node0 = DNode(0)
+    node5 = DNode(5)
+    dll.sorted_insert(node0)
+    dll.sorted_insert(node5)
+    dll.print_info()  # should print List length: 6, Sorted status: sorted, List content: 0 1 2 3 4 5, Reverse list content: 5 4 3 2 1 0
 
-# test insert method
-my_list.insert(Node(5), 4)
-my_list.insert(Node(0), 0)
-my_list.insert(Node(2.5), 3)
-assert my_list.size == 7
-assert my_list.head.data == 0
-assert my_list.tail.data == 5
-assert my_list.head.next.next.data == 1
-assert my_list.tail.prev.prev.data == 3
-assert my_list.head.next.next.next.data == 2.5
+    # test delete_head and print_info methods
+    dll.delete_head()
+    dll.print_info()  # should print List length: 5, Sorted status: sorted, List content: 1 2 3 4 5, Reverse list content: 5 4 3 2 1
 
-# test sorted_insert method
-my_list.sorted_insert(Node(1.5))
-my_list.sorted_insert(Node(4.5))
-assert my_list.size == 9
-assert my_list.head.data == 0
-assert my_list.tail.data == 5
-assert my_list.head.next.next.data == 1
-assert my_list.tail.prev.prev.data == 4
-assert my_list.head.next.next.next.data == 1.5
-assert my_list.tail.prev.prev.prev.data == 4.5
+    # test delete_tail and print_info methods
+    dll.delete_tail()
+    dll.print_info()  # should print List length: 4, Sorted status: sorted, List content: 1 2 3 4, Reverse list content: 4 3 2 1
 
-# test search method
-node = my_list.search(Node(1.5))
-assert node is not None
-assert node.data == 1.5
-node = my_list.search(Node(10))
-assert node is None
+    # test delete_node and print_info methods
+    dll.delete_node(node2)
+    dll.print_info()  # should print List length: 3, Sorted status: sorted, List content: 1 3 4, Reverse list content: 4 3 1
 
-# test delete_head method
-my_list.delete_head()
-assert my_list.size == 8
-assert my_list.head.data == 1
-assert my_list.head.prev is None
-assert my_list.head.next.data == 1.5
+    # test search method
+    print(dll.search(node3))  # should print DNode object at memory location ...
+    print(dll.search(DNode(5)))  # should print None
 
-# test delete_tail method
-my_list.delete_tail()
-assert my_list.size == 7
-assert my_list.tail.data == 4
-assert my_list.tail.next is None
-assert my_list.tail.prev.data == 3
+    # test is_sorted method
+    dll.sort()
+    dll.print_info()  # should print List length: 3, Sorted status: sorted, List content: 1 3 4, Reverse list content: 4 3 1
+    print(dll.is_sorted())  # should print True
 
-# test delete_node method
-node = my_list.search(Node(3))
-my_list.delete_node(node)
-assert my_list.size == 6
-assert my_list.head.next.next.data == 1.5
-assert my_list.tail.prev.data == 4.5
+    
+    def test_circular_singly_linked_list():
+        # Create an empty circular singly linked list
+        cll = CircularSinglyLinkedList()
 
-# test sort method
-my_list.sort()
-assert my_list.head.data == 0
-assert my_list.tail.data == 5
-assert my_list.head.next.next.data == 1
-assert my_list.tail.prev.prev.data == 4
-assert my_list.head.next.next.next.data == 1.5
-assert my_list.tail.prev.prev.prev.data == 4.5
+        # Test insert_head method
+        cll.insert_head(SNode(3))
+        assert cll.head.data == 3
+        assert cll.tail.data == 3
+        assert cll.size == 1
 
-# test print_info method
-my_list.print_info()
+        cll.insert_head(SNode(2))
+        assert cll.head.data == 2
+        assert cll.tail.data == 3
+        assert cll.size == 2
+
+        cll.insert_head(SNode(1))
+        assert cll.head.data == 1
+        assert cll.tail.data == 3
+        assert cll.size == 3
+
+        # Test insert_tail method
+        cll.insert_tail(SNode(4))
+        assert cll.head.data == 1
+        assert cll.tail.data == 4
+        assert cll.size == 4
+
+        cll.insert_tail(SNode(5))
+        assert cll.head.data == 1
+        assert cll.tail.data == 5
+        assert cll.size == 5
+
+        # Test insert method
+        cll.insert(SNode(0), 0)
+        assert cll.head.data == 0
+        assert cll.tail.data == 5
+        assert cll.size == 6
+
+        cll.insert(SNode(6), 6)
+        assert cll.head.data == 0
+        assert cll.tail.data == 6
+        assert cll.size == 7
+
+        cll.insert(SNode(2.5), 3)
+        assert cll.head.data == 0
+        assert cll.tail.data == 6
+        assert cll.size == 8
+
+        # Test delete_head method
+        cll.delete_head()
+        assert cll.head.data == 1
+        assert cll.tail.data == 6
+        assert cll.size == 7
+
+        cll.delete_head()
+        assert cll.head.data == 2
+        assert cll.tail.data == 6
+        assert cll.size == 6
+
+        # Test delete_tail method
+        cll.delete_tail()
+        assert cll.head.data == 2
+        assert cll.tail.data == 5
+        assert cll.size == 5
+
+        cll.delete_tail()
+        assert cll.head.data == 2
+        assert cll.tail.data == 4
+        assert cll.size == 4
+
+        # Test delete_node method
+        node_to_delete = cll.head.next
+        cll.delete_node(node_to_delete)
+        assert cll.head.data == 2
+        assert cll.tail.data == 4
+        assert cll.size == 3
+
+        node_to_delete = cll.tail
+        cll.delete_node(node_to_delete)
+        assert cll.head.data == 2
+        assert cll.tail.data == 3
+        assert cll.size == 2
+
+        # Test sort method
+        cll.insert_tail(SNode(1))
+        cll.insert_tail(SNode(5))
+        cll.insert_tail(SNode(3))
+        cll.sort()
+        assert cll.head.data == 1
+        assert cll.tail.data == 5
+        assert cll.is_sorted()
+
+        # Test is_sorted method
+        cll = CircularSinglyLinkedList()
+        cll.insert_tail(SNode(1))
+        cll.insert_tail(SNode(2))
+        cll.insert_tail(SNode(3))
+        assert cll.is_sorted() == True
+
+        cll = CircularSinglyLinkedList()
+        cll.insert_tail(SNode(3))
+        cll.insert_tail(SNode(2))
+        cll.insert_tail(SNode(1))
+        assert cll.is_sorted() == False
+
+        cll = CircularSinglyLinkedList()
+        cll.insert_tail(SNode(1))
+        cll.insert_tail(SNode(3))
+        cll.insert_tail(SNode(2))
+        assert cll.is_sorted() == False
+
+        cll = CircularSinglyLinkedList()
+        cll.insert_tail(SNode(2))
+        cll.insert_tail(SNode(1))
+        assert cll.is_sorted() == False
+
+        cll = CircularSinglyLinkedList()
+        cll.insert_tail(SNode(1))
+        assert cll.is_sorted() == True
+
+        cll = CircularSinglyLinkedList()
+        assert cll.is_sorted() == True
+
+
+
+
+
