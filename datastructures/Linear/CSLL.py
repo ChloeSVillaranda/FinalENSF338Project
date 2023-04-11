@@ -1,3 +1,4 @@
+from datastructures.Linear.SLL import SinglyLinkedList
 class CircularSinglyLinkedList(SinglyLinkedList):
     def __init__(self, head=None):
         super().__init__(head)
