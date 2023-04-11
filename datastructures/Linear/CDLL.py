@@ -116,30 +116,30 @@ class CircularDoublyLinkedList(DoublyLinkedList):
         if self.size <= 1:
             return
 
-    current = self.head.next
-    while current is not self.head:
-        node_to_insert = current
-        current = current.next
-        self.delete_node(node_to_insert)
+        current = self.head.next
+        while current is not self.head:
+            node_to_insert = current
+            current = current.next
+            self.delete_node(node_to_insert)
 
-        prev = None
-        insert_after = self.head.next
-        while insert_after is not self.head and insert_after.data <= node_to_insert.data:
-            prev = insert_after
-            insert_after = insert_after.next
+            prev = None
+            insert_after = self.head.next
+            while insert_after is not self.head and insert_after.data <= node_to_insert.data:
+                prev = insert_after
+                insert_after = insert_after.next
 
-        if prev is None:
-            node_to_insert.next = self.head.next
-            node_to_insert.prev = self.head
-            self.head.next.prev = node_to_insert
-            self.head.next = node_to_insert
-        else:
-            node_to_insert.next = insert_after
-            node_to_insert.prev = prev
-            prev.next = node_to_insert
-            if insert_after is not self.head:
-                insert_after.prev = node_to_insert
-  
+            if prev is None:
+                node_to_insert.next = self.head.next
+                node_to_insert.prev = self.head
+                self.head.next.prev = node_to_insert
+                self.head.next = node_to_insert
+            else:
+                node_to_insert.next = insert_after
+                node_to_insert.prev = prev
+                prev.next = node_to_insert
+                if insert_after is not self.head:
+                    insert_after.prev = node_to_insert
+    
 
     def print_info(self):
         print("List length:", self.size)
