@@ -35,8 +35,11 @@ class SinglyLinkedList:
             for i in range(position - 1):
                 current = current.next
             node.next = current.next
+            node.prev = current
             current.next = node
+            node.next.prev = node
             self.size += 1
+
 
     def SortedInsert(self, node):
         if self.size == 0:
@@ -64,6 +67,7 @@ class SinglyLinkedList:
                 return current
             current = current.next
         return None
+
 
     def DeleteHead(self):
         if self.size > 0:

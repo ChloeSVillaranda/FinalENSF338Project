@@ -19,12 +19,13 @@ class DoublyLinkedList:
         self.size += 1
 
     def InsertTail(self, node):
-        if self.tail is not None:
-            self.tail.next = node
-            node.prev = self.tail
-        else:
+        if self.size == 0:
             self.head = node
-        self.tail = node
+            self.tail = node
+        else:
+            node.prev = self.tail
+            self.tail.next = node
+            self.tail = node
         self.size += 1
 
     def Insert(self, node, position):
@@ -43,6 +44,10 @@ class DoublyLinkedList:
             self.size += 1
 
     def SortedInsert(self, node):
+        if self.size == 0:
+            self.InsertHead(node)
+            self.tail = node
+            return
         current = self.head
         prev = None
         while current is not None and current.data < node.data:
@@ -54,16 +59,25 @@ class DoublyLinkedList:
             node.next = current
             node.prev = prev
             prev.next = node
-            current.prev = node
-        self.size += 1
+            if current is None:
+                self.tail = node
+            else:
+                current.prev = node
+            self.size += 1
+
 
     def Search(self, node):
         current = self.head
         while current is not None:
-            if current.data == node.data:
-                return current
+            if type(node) == int:
+                if current.data == node:
+                    return current
+            elif type(node) == DNode:
+                if current.data == node.data:
+                    return current
             current = current.next
         return None
+
 
     def DeleteHead(self):
         if self.size > 0:
@@ -99,60 +113,49 @@ class DoublyLinkedList:
         if self.size <= 1:
             return
 
-        current = self.head.next
+        sorted_list = DoublyLinkedList()
+        current = self.head
+
         while current is not None:
-            node_to_insert = current
-            current = current.next
-            self.Delete(node_to_insert)
+            next_node = current.next
+            sorted_list.SortedInsert(current)
+            current = next_node
 
-            prev = None
-            insert_after = self.head.next
-            while insert_after is not None and insert_after.data <= node_to_insert.data:
-                prev = insert_after
-                insert_after = insert_after.next
-
-            if prev is None:
-                node_to_insert.next = self.head.next
-                node_to_insert.prev = self.head
-                self.head.next.prev = node_to_insert
-                self.head.next = node_to_insert
-            else:
-                node_to_insert.next = insert_after
-                node_to_insert.prev = prev
-                prev.next = node_to_insert
-                if insert_after is not None:
-                    insert_after.prev = node_to_insert
-        self.tail = node_to_insert
-
+        self.head = sorted_list.head
+        self.tail = sorted_list.tail
+    
     def Clear(self):
-        while self.head.next is not None:
-            self.Delete(self.head.next)
-        self.tail = self.head
+        current = self.head
+        while current is not None:
+            temp = current.next
+            current.prev = current.next = None
+            current = temp
+        self.head = self.tail = None
         self.size = 0
 
     def Print(self):
         print("List length:", self.size)
-        
-        sorted_status = True
-        prev_node = self.head.next
-        current_node = prev_node.next
-        while current_node is not None:
-            if current_node.data < prev_node.data:
-                sorted_status = False
-                break
-            prev_node = current_node
-            current_node = current_node.next
 
-        if sorted_status:
+        if self.isSorted():
             print("Sorted status: sorted")
         else:
             print("Sorted status: unsorted")
 
         print("List content:")
-        current = self.head.next
+        current = self.head
         while current is not None:
             print(current.data)
             current = current.next
+
+
+    def isSorted(self):
+        current = self.head
+        while current is not None and current.next is not None:
+            if current.data > current.next.data:
+                return False
+            current = current.next
+        return True
+
 
 
 
