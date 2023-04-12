@@ -5,21 +5,22 @@ class CircularSinglyLinkedList(SinglyLinkedList):
         if self.head is not None:
             self.tail.next = self.head
 
-    def insert_head(self, node):
-        super().insert_head(node)
+    def InsertHead(self, node):
+        super().InsertHead(node)
         if self.size == 1:
             self.tail = node
             self.tail.next = self.head
 
-    def insert_tail(self, node):
-        super().insert_tail(node)
+    def InsertTail(self, node):
+        super().InsertTail(node)
         self.tail.next = self.head
 
-    def insert(self, node, position):
+    def Insert(self, node, position):
         if position == 0:
-            self.insert_head(node)
+            self.InsertHead(node)
         elif position == self.size:
-            self.insert_tail(node)
+            self.InsertTail(node)
+            self.tail = node
         elif position < self.size:
             current = self.head
             for i in range(position - 1):
@@ -28,7 +29,8 @@ class CircularSinglyLinkedList(SinglyLinkedList):
             current.next = node
             self.size += 1
 
-    def delete_head(self):
+
+    def DeleteHead(self):
         if self.size > 0:
             if self.size == 1:
                 self.tail = None
@@ -36,7 +38,7 @@ class CircularSinglyLinkedList(SinglyLinkedList):
             self.tail.next = self.head
             self.size -= 1
 
-    def delete_tail(self):
+    def DeleteTail(self):
         if self.size > 0:
             if self.size == 1:
                 self.head = None
@@ -49,7 +51,7 @@ class CircularSinglyLinkedList(SinglyLinkedList):
                 self.tail = current
             self.size -= 1
 
-    def delete_node(self, node):
+    def Delete(self, node):
         current = self.head
         prev = None
         while current is not None:
@@ -64,21 +66,7 @@ class CircularSinglyLinkedList(SinglyLinkedList):
             prev = current
             current = current.next
 
-    def print_info(self):
-        print("List length:", self.size)
-        if self.is_sorted():
-            print("Sorted status: sorted")
-        else:
-            print("Sorted status: unsorted")
-        print("List content:")
-        current = self.head
-        while current is not None:
-            print(current.data)
-            if current.next == self.head:
-                break
-            current = current.next
-
-    def sort(self):
+    def Sort(self):
         if self.size <= 1:
             return
 
@@ -86,7 +74,7 @@ class CircularSinglyLinkedList(SinglyLinkedList):
         while current is not None:
             node_to_insert = current
             current = current.next
-            self.delete_node(node_to_insert)
+            self.Delete(node_to_insert)
 
             prev = None
             insert_after = self.head
@@ -97,18 +85,32 @@ class CircularSinglyLinkedList(SinglyLinkedList):
                     break
 
             if prev is None:
-                self.insert_head(node_to_insert)
+                self.InsertHead(node_to_insert)
             else:
                 node_to_insert.next = insert_after
                 prev.next = node_to_insert
+                
+    def Print(self):
+        print("List length:", self.size)
+        
+        sorted_status = True
+        prev_node = self.head.next
+        current_node = prev_node.next
+        while current_node is not None:
+            if current_node.data < prev_node.data:
+                sorted_status = False
+                break
+            prev_node = current_node
+            current_node = current_node.next
 
-    # Adding an is_sorted method
-    def is_sorted(self):
-        if self.size <= 1:
-            return True
-        current = self.head
-        while current.next != self.head:
-            if current.data > current.next.data:
-                return False
+        if sorted_status:
+            print("Sorted status: sorted")
+        else:
+            print("Sorted status: unsorted")
+
+        print("List content:")
+        current = self.head.next
+        while current is not None:
+            print(current.data)
             current = current.next
-        return True
+

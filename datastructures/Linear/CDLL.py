@@ -16,7 +16,7 @@ class CircularDoublyLinkedList(DoublyLinkedList):
                 current = current.next
                 self.size += 1
 
-    def insert_head(self, node):
+    def InsertHead(self, node):
         node.next = self.head
         node.prev = self.tail
         if self.head is not None:
@@ -27,7 +27,7 @@ class CircularDoublyLinkedList(DoublyLinkedList):
         self.tail.next = self.head
         self.size += 1
 
-    def insert_tail(self, node):
+    def InsertTail(self, node):
         if self.tail is not None:
             node.prev = self.tail
             node.next = self.head
@@ -41,11 +41,11 @@ class CircularDoublyLinkedList(DoublyLinkedList):
         self.tail = node
         self.size += 1
 
-    def insert(self, node, position):
+    def Insert(self, node, position):
         if position == 0:
-            self.insert_head(node)
+            self.InsertHead(node)
         elif position == self.size:
-            self.insert_tail(node)
+            self.InsertTail(node)
         elif position < self.size:
             current = self.head
             for i in range(position - 1):
@@ -56,26 +56,26 @@ class CircularDoublyLinkedList(DoublyLinkedList):
             node.next.prev = node
             self.size += 1
 
-    def sorted_insert(self, node):
-        if self.is_sorted():
-            current = self.head
-            prev = None
-            while current is not self.head and current.data < node.data:
-                prev = current
-                current = current.next
-            if prev is None:
-                self.insert_head(node)
-            else:
-                node.next = current
-                node.prev = prev
-                prev.next = node
-                current.prev = node
-            self.size += 1
-        else:
-            self.sort()
-            self.sorted_insert(node)
+    def SortedInsert(self, node):
+        current = self.head
+        prev = None
+        while current is not self.head and current.data < node.data:
+            prev = current
+            current = current.next
 
-    def search(self, node):
+        if prev is None:
+            self.InsertHead(node)
+        else:
+            node.next = current
+            node.prev = prev
+            prev.next = node
+            if current is not self.head:
+                current.prev = node
+
+        self.size += 1
+
+
+    def Search(self, node):
         current = self.head
         while current is not self.head:
             if current.data == node.data:
@@ -83,18 +83,18 @@ class CircularDoublyLinkedList(DoublyLinkedList):
             current = current.next
         return None
 
-    def delete_head(self):
+    def DeleteHead(self):
         if self.size > 0:
-            if self.size == 1:
+            if self.size == 2:
                 self.tail = None
             self.head = self.head.next
             self.head.prev = self.tail
             self.tail.next = self.head
             self.size -= 1
 
-    def delete_tail(self):
+    def DeleteTail(self):
         if self.size > 0:
-            if self.size == 1:
+            if self.size == 2:
                 self.head = None
                 self.tail = None
             else:
@@ -103,7 +103,7 @@ class CircularDoublyLinkedList(DoublyLinkedList):
                 self.head.prev = self.tail
             self.size -= 1
 
-    def delete_node(self, node):
+    def Delete(self, node):
         if self.head == node:
             self.head = node.next
         if self.tail == node:
@@ -112,7 +112,7 @@ class CircularDoublyLinkedList(DoublyLinkedList):
         node.next.prev = node.prev
         self.size -= 1
 
-    def sort(self):
+    def Sort(self):
         if self.size <= 1:
             return
 
@@ -141,39 +141,26 @@ class CircularDoublyLinkedList(DoublyLinkedList):
                     insert_after.prev = node_to_insert
     
 
-    def print_info(self):
+    def Print(self):
         print("List length:", self.size)
-        if self.is_sorted():
+        
+        sorted_status = True
+        prev_node = self.head.next
+        current_node = prev_node.next
+        while current_node is not None:
+            if current_node.data < prev_node.data:
+                sorted_status = False
+                break
+            prev_node = current_node
+            current_node = current_node.next
+
+        if sorted_status:
             print("Sorted status: sorted")
         else:
             print("Sorted status: unsorted")
+
         print("List content:")
-        current = self.head
+        current = self.head.next
         while current is not None:
             print(current.data)
             current = current.next
-
-        print("Reverse list content:")
-        current = self.tail
-        while current is not None:
-            print(current.data)
-            current = current.prev
-
-
-    #Adding an is_sorted method
-    def is_sorted(self):
-        if self.size <= 1:
-            return True
-        
-        current = self.head
-        is_ascending = True
-        is_descending = True
-        
-        while current.next is not None:
-            if current.data > current.next.data:
-                is_ascending = False
-            if current.data < current.next.data:
-                is_descending = False
-            current = current.next
-        
-        return is_ascending or is_descending

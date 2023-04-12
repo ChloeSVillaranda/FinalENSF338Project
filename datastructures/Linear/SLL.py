@@ -9,14 +9,14 @@ class SinglyLinkedList:
                 self.tail = self.tail.next
                 self.size += 1
 
-    def insert_head(self, node):
+    def InsertHead(self, node):
         node.next = self.head
         self.head = node
         if self.size == 0:
             self.tail = node
         self.size += 1
 
-    def insert_tail(self, node):
+    def InsertTail(self, node):
         if self.size == 0:
             self.head = node
             self.tail = node
@@ -25,11 +25,11 @@ class SinglyLinkedList:
             self.tail = node
         self.size += 1
 
-    def insert(self, node, position):
+    def Insert(self, node, position):
         if position == 0:
-            self.insert_head(node)
+            self.InsertHead(node)
         elif position == self.size:
-            self.insert_tail(node)
+            self.InsertTail(node)
         elif position < self.size:
             current = self.head
             for i in range(position - 1):
@@ -38,24 +38,23 @@ class SinglyLinkedList:
             current.next = node
             self.size += 1
 
-    def sorted_insert(self, node):
-        if self.is_sorted():
-            current = self.head
-            prev = None
-            while current is not None and current.data < node.data:
-                prev = current
-                current = current.next
-            if prev is None:
-                self.insert_head(node)
-            else:
-                node.next = current
-                prev.next = node
-            self.size += 1
+    def SortedInsert(self, node):
+        if self.size == 0:
+            self.InsertHead(node)
+            return
+        current = self.head
+        prev = None
+        while current is not None and current.data < node.data:
+            prev = current
+            current = current.next
+        if prev is None:
+            self.InsertHead(node)
         else:
-            self.sort()
-            self.sorted_insert(node)
+            node.next = current
+            prev.next = node
+        self.size += 1
 
-    def search(self, node):
+    def Search(self, node):
         current = self.head
         while current is not None:
             if current.data == node.data:
@@ -63,14 +62,14 @@ class SinglyLinkedList:
             current = current.next
         return None
 
-    def delete_head(self):
+    def DeleteHead(self):
         if self.size > 0:
             if self.size == 1:
                 self.tail = None
             self.head = self.head.next
             self.size -= 1
 
-    def delete_tail(self):
+    def DeleteTail(self):
         if self.size > 0:
             if self.size == 1:
                 self.head = None
@@ -83,7 +82,8 @@ class SinglyLinkedList:
                 self.tail = current
             self.size -= 1
 
-    def delete_node(self, node):
+
+    def Delete(self, node):
         current = self.head
         prev = None
         while current is not None:
@@ -99,7 +99,7 @@ class SinglyLinkedList:
             prev = current
             current = current.next
 
-    def sort(self):
+    def Sort(self):
         if self.size <= 1:
             return
 
@@ -107,7 +107,7 @@ class SinglyLinkedList:
         while current is not None:
             node_to_insert = current
             current = current.next
-            self.delete_node(node_to_insert)
+            self.Delete(node_to_insert)
 
             prev = None
             insert_after = self.head
@@ -116,32 +116,39 @@ class SinglyLinkedList:
                 insert_after = insert_after.next
 
             if prev is None:
-                self.insert_head(node_to_insert)
+                self.InsertHead(node_to_insert)
             else:
                 node_to_insert.next = insert_after
                 prev.next = node_to_insert
-    
 
-    def print_info(self):
+    def Clear(self):
+        while self.head is not None:
+            self.DeleteHead()
+        self.tail = None
+        self.size = 0
+
+    def Print(self):
         print("List length:", self.size)
-        if self.is_sorted():
+        
+        sorted_status = True
+        prev_node = self.head.next
+        current_node = prev_node.next
+        while current_node is not None:
+            if current_node.data < prev_node.data:
+                sorted_status = False
+                break
+            prev_node = current_node
+            current_node = current_node.next
+
+        if sorted_status:
             print("Sorted status: sorted")
         else:
             print("Sorted status: unsorted")
+
         print("List content:")
-        current = self.head
+        current = self.head.next
         while current is not None:
             print(current.data)
             current = current.next
 
-    #Adding an is_sorted method
-    def is_sorted(self):
-        if self.size <= 1:
-            return True
-        current = self.head
-        while current.next is not None:
-            if current.data > current.next.data:
-                return False
-            current = current.next
-        return True
 
