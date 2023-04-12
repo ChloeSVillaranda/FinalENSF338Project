@@ -19,9 +19,10 @@ class SinglyLinkedList:
     def insert_tail(self, node):
         if self.size == 0:
             self.head = node
+            self.tail = node
         else:
             self.tail.next = node
-        self.tail = node
+            self.tail = node
         self.size += 1
 
     def insert(self, node, position):

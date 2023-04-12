@@ -7,93 +7,94 @@ from datastructures.Linear.CDLL import CircularDoublyLinkedList
 
 
 def test_singly_linked_list():
-    # Create an empty list
-    sll = SinglyLinkedList()
+    # Create a new linked list
+    ll = SinglyLinkedList()
 
-    # Test that the list is empty
-    assert sll.is_empty() == True
-    assert sll.length() == 0
+    # Test insert_head method
+    ll.insert_head(SNode(1))
+    assert ll.head.data == 1
+    assert ll.tail.data == 1
+    assert ll.size == 1
 
-    # Test adding items to the list
-    sll.add_first(1)
-    sll.add_first(2)
-    sll.add_last(3)
-    assert sll.length() == 3
+    # Test insert_tail method
+    ll.insert_tail(SNode(2))
+    assert ll.head.data == 1
+    assert ll.tail.data == 2
+    assert ll.size == 2
 
-    # Test removing items from the list
-    assert sll.remove_first() == 2
-    assert sll.remove_last() == 3
-    assert sll.length() == 1
+    # Test insert method
+    ll.insert(SNode(3), 1)
+    assert ll.head.data == 1
+    assert ll.tail.data == 2
+    assert ll.size == 3
+    assert ll.head.next.data == 3
+    assert ll.head.next.next.data == 2
 
-    # Test iterating over the list
-    items = [node.data for node in sll]
-    assert items == [1]
+    # Test sorted_insert method
+    ll.sorted_insert(SNode(0))
+    assert ll.head.data == 0
+    assert ll.tail.data == 2
+    assert ll.size == 4
+    assert ll.head.next.data == 1
+    assert ll.head.next.next.data == 3
+    assert ll.head.next.next.next.data == 2
 
-    # Test searching for an item in the list
-    assert sll.contains(1) == True
-    assert sll.contains(2) == False
+    # Test search method
+    node = ll.search(SNode(3))
+    assert node is not None
+    assert node.data == 3
 
-    # Test getting the data of the first and last nodes in the list
-    assert sll.get_first() == 1
-    assert sll.get_last() == 1
+    # Test delete_head method
+    ll.delete_head()
+    assert ll.head.data == 1
+    assert ll.tail.data == 2
+    assert ll.size == 3
 
-    # Test clearing the list
-    sll.clear()
-    assert sll.is_empty() == True
-    assert sll.length() == 0
+    # Test delete_tail method
+    ll.delete_tail()
+    assert ll.head.data == 1
+    assert ll.tail.data == 3
+    assert ll.size == 2
 
-    # create some nodes to insert into the list
-    node1 = DNode(1)
-    node2 = DNode(2)
-    node3 = DNode(3)
-    node4 = DNode(4)
+    # Test delete_node method
+    node_to_delete = ll.search(SNode(3))
+    ll.delete_node(node_to_delete)
+    assert ll.head.data == 1
+    assert ll.tail.data == 1
+    assert ll.size == 1
+    assert ll.head.next is None
 
-    # initialize an empty list
-    dll = DoublyLinkedList()
+    # Test sort method
+    ll.insert_head(SNode(3))
+    ll.insert_tail(SNode(2))
+    ll.insert_head(SNode(5))
+    ll.insert_tail(SNode(1))
+    ll.sort()
+    assert ll.head.data == 1
+    assert ll.tail.data == 5
+    assert ll.size == 5
+    assert ll.head.next.data == 2
+    assert ll.head.next.next.data == 3
+    assert ll.head.next.next.next.data == 4
+    assert ll.head.next.next.next.next.data == 5
+    assert ll.head.next.next.next.next.next is None
 
-    # test insert_head and print_info methods
-    dll.insert_head(node2)
-    dll.insert_head(node1)
-    dll.print_info()  # should print List length: 2, Sorted status: unsorted, List content: 1 2, Reverse list content: 2 1
+    # Test print_info method
+    captured_output = io.StringIO()
+    sys.stdout = captured_output
+    ll.print_info()
+    sys.stdout = sys.__stdout__
+    expected_output = "List length: 5\nSorted status: sorted\nList content:\n1\n2\n3\n4\n5\n"
+    assert captured_output.getvalue() == expected_output
 
-    # test insert_tail and print_info methods
-    dll.insert_tail(node3)
-    dll.print_info()  # should print List length: 3, Sorted status: unsorted, List content: 1 2 3, Reverse list content: 3 2 1
+    # Test is_sorted method
+    assert ll.is_sorted() is True
+    ll.insert_tail(SNode(0))
+    assert ll.is_sorted() is False
 
-    # test insert method and print_info method
-    dll.insert(node4, 2)
-    dll.print_info()  # should print List length: 4, Sorted status: unsorted, List content: 1 2 4 3, Reverse list content: 3 4 2 1
-
-    # test sorted_insert and print_info methods
-    node0 = DNode(0)
-    node5 = DNode(5)
-    dll.sorted_insert(node0)
-    dll.sorted_insert(node5)
-    dll.print_info()  # should print List length: 6, Sorted status: sorted, List content: 0 1 2 3 4 5, Reverse list content: 5 4 3 2 1 0
-
-    # test delete_head and print_info methods
-    dll.delete_head()
-    dll.print_info()  # should print List length: 5, Sorted status: sorted, List content: 1 2 3 4 5, Reverse list content: 5 4 3 2 1
-
-    # test delete_tail and print_info methods
-    dll.delete_tail()
-    dll.print_info()  # should print List length: 4, Sorted status: sorted, List content: 1 2 3 4, Reverse list content: 4 3 2 1
-
-    # test delete_node and print_info methods
-    dll.delete_node(node2)
-    dll.print_info()  # should print List length: 3, Sorted status: sorted, List content: 1 3 4, Reverse list content: 4 3 1
-
-    # test search method
-    print(dll.search(node3))  # should print DNode object at memory location ...
-    print(dll.search(DNode(5)))  # should print None
-
-    # test is_sorted method
-    dll.sort()
-    dll.print_info()  # should print List length: 3, Sorted status: sorted, List content: 1 3 4, Reverse list content: 4 3 1
-    print(dll.is_sorted())  # should print True
 
     
-    def test_circular_singly_linked_list():
+def test_circular_singly_linked_list():
         # Create an empty circular singly linked list
         cll = CircularSinglyLinkedList()
 
@@ -214,6 +215,88 @@ def test_singly_linked_list():
 
         cll = CircularSinglyLinkedList()
         assert cll.is_sorted() == True
+
+def test_circular_doubly_linked_list():
+        # Test creation of an empty list
+        cll = CircularDoublyLinkedList()
+        assert cll.head is None
+        assert cll.tail is None
+        assert cll.size == 0
+
+        # Test insertion at the head
+        cll.insert_head(DoublyLinkedList.DNode(1))
+        assert cll.head.data == 1
+        assert cll.tail.data == 1
+        assert cll.size == 1
+
+        # Test insertion at the tail
+        cll.insert_tail(DoublyLinkedList.DNode(2))
+        assert cll.head.data == 1
+        assert cll.tail.data == 2
+        assert cll.size == 2
+
+        # Test insertion at a specific position
+        cll.insert(DoublyLinkedList.DNode(3), 1)
+        assert cll.head.data == 1
+        assert cll.tail.data == 2
+        assert cll.head.next.data == 3
+        assert cll.tail.prev.data == 3
+        assert cll.size == 3
+
+        # Test sorted insertion
+        cll.sorted_insert(DoublyLinkedList.DNode(0))
+        assert cll.head.data == 0
+        assert cll.tail.data == 3
+        assert cll.is_sorted()
+        assert cll.size == 4
+
+        # Test search
+        assert cll.search(DoublyLinkedList.DNode(3)).data == 3
+        assert cll.search(DoublyLinkedList.DNode(5)) is None
+
+        # Test deletion from the head
+        cll.delete_head()
+        assert cll.head.data == 1
+        assert cll.tail.data == 3
+        assert cll.size == 3
+
+        # Test deletion from the tail
+        cll.delete_tail()
+        assert cll.head.data == 1
+        assert cll.tail.data == 2
+        assert cll.size == 2
+
+        # Test deletion of a specific node
+        cll.delete_node(cll.search(DoublyLinkedList.DNode(3)))
+        assert cll.head.data == 1
+        assert cll.tail.data == 2
+        assert cll.size == 1
+
+        # Test sorting of unsorted list
+        cll.insert_tail(DoublyLinkedList.DNode(0))
+        cll.insert_tail(DoublyLinkedList.DNode(3))
+        cll.sort()
+        assert cll.head.data == 0
+        assert cll.tail.data == 3
+        assert cll.is_sorted()
+        assert cll.size == 3
+
+        # Test is_sorted method
+        cll.insert_tail(DoublyLinkedList.DNode(2))
+        assert cll.is_sorted() is False
+        cll.sort()
+        assert cll.is_sorted() is True
+
+def main():
+    test_singly_linked_list()
+    # test_doubly_linked_list()
+    # test_circular_singly_linked_list()
+    # test_circular_doubly_linked_list()
+    # test_ll_stack()
+
+if __name__ == '__main__':
+    main()
+
 
 
 
