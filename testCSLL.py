@@ -98,3 +98,25 @@ assert csl.head.next.data == 2
 assert csl.tail.data == 3
 assert csl.head.next.next.next.data == 1
 assert csl.size == 3
+
+# Create a new linked list
+my_list = CircularSinglyLinkedList()
+
+# Add some nodes to the list
+my_list.InsertHead(SNode(1))
+my_list.InsertTail(SNode(2))
+my_list.InsertTail(SNode(3))
+my_list.InsertTail(SNode(4))
+my_list.InsertTail(SNode(5))
+
+list = CircularSinglyLinkedList()
+node1 = SNode(1)
+node2 = SNode(2)
+list.InsertHead(node1)
+list.InsertHead(node2)
+
+# Test case 1: Search for existing node
+assert list.Search(node1) == node1
+
+# Test case 2: Search for non-existing node
+assert list.Search(SNode(3)) is None

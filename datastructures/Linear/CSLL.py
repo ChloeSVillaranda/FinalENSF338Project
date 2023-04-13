@@ -120,9 +120,24 @@ class CircularSinglyLinkedList(SinglyLinkedList):
         while self.tail.next != self.head:
             self.tail = self.tail.next
         self.tail.next = self.head
-
-
-
+    
+    def Search(self, node):
+        # Create a temporary node pointing to the head
+        temp = self.head
+        # Create a variable to track the current index
+        i = 0 
+        # Loop through the list until the end or until the node is found
+        while temp != None:
+            i += 1
+            # If the current node matches the search node, return the current node
+            if temp.data == node.data:
+                return temp
+            temp = temp.next
+            # If we've looped back to the head, break the loop
+            if temp == self.head:
+                break
+        # If the node is not found, return None
+        return None
 
     def Print(self):
         print("List length:", self.size)
