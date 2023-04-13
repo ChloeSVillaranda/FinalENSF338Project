@@ -1,28 +1,39 @@
 from datastructures.Linear.SLL import SinglyLinkedList
-class LLStack(SinglyLinkedList):
+class SLLStack(SinglyLinkedList):
     def __init__(self):
         super().__init__()
-    
-    def push(self, data):
-        super().insert_head(data)
-    
+
+    def push(self, node):
+        self.InsertHead(node)
+
     def pop(self):
-        if self.is_empty():
-            return None
-        else:
-            data = self.head.data
-            self.delete_head()
-            return data
-    
+        node = self.head
+        self.DeleteHead()
+        return node
+
     def peek(self):
-        if self.is_empty():
-            return None
-        else:
-            return self.head.data
-    
+        return self.head
+
+    def size(self):
+        return self.size
+
     def is_empty(self):
-        return super().is_empty()
-    
-    # Override any methods from SinglyLinkedList that don't apply to stacks with empty body methods
-    def insert_tail(self, data):
+        return self.size == 0
+
+    def Clear(self):
+        super().Clear()
+
+    def InsertTail(self, node):
+        pass
+
+    def Insert(self, node, position):
+        pass
+
+    def SortedInsert(self, node):
+        pass
+
+    def DeleteTail(self):
+        pass
+
+    def isSorted(self):
         pass
