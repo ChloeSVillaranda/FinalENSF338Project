@@ -50,35 +50,38 @@ class CircularDoublyLinkedList(DoublyLinkedList):
             self.size += 1
 
     def SortedInsert(self, node):
-        if self.size == 0:
-            self.InsertHead(node)
+        if self.head is None:
+            self.head = node
+            node.next = node
+            node.prev = node
             self.tail = node
-            self.tail.next = self.head
-            self.head.prev = self.tail
+            self.size += 1
             return
 
         current = self.head
-        prev = None
-        while current is not None and current.data < node.data:
-            prev = current
+        if current.data >= node.data:
+            node.next = current
+            node.prev = self.tail
+            self.head = node
+            current.prev = node
+            self.tail.next = node
+            self.size += 1
+            return
+
+        while current.next != self.head and current.next.data < node.data:
             current = current.next
 
-        if prev is None:
-            self.InsertHead(node)
+        node.next = current.next
+        node.prev = current
+        current.next.prev = node
+        current.next = node
+        if current == self.tail:
+            self.tail = node
             self.tail.next = self.head
             self.head.prev = self.tail
-            print("it goes through the if statement")
-        else:
-            print("it goes through the else statement")
-            node.next = current
-            node.prev = prev
-            prev.next = node
-            current.prev = node
-            if current is None:
-                self.tail = node
-                self.tail.next = self.head
-                self.head.prev = self.tail
+
         self.size += 1
+
 
     def Search(self, node):
         # Create a temporary node pointing to the head
@@ -137,6 +140,7 @@ class CircularDoublyLinkedList(DoublyLinkedList):
                     prev.next = current.next
                     if current == self.tail:
                         self.tail = prev
+                        self.head.prev = prev # update prev pointer
                     else:
                         current.next.prev = prev
                 self.size -= 1
