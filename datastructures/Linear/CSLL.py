@@ -34,27 +34,30 @@ class CircularSinglyLinkedList(SinglyLinkedList):
             self.size += 1
 
     def SortedInsert(self, node):
-        if self.size == 0:
-            self.InsertHead(node)
+        if self.head is None:
+            self.head = node
+            node.next = node
             self.tail = node
-            self.tail.next = self.head
+            self.size += 1
             return
 
         current = self.head
-        prev = None
-        while current is not None and current.data < node.data:
-            prev = current
+        if current.data >= node.data:
+            node.next = current
+            self.head = node
+            self.tail.next = node
+            self.size += 1
+            return
+
+        while current.next != self.head and current.next.data < node.data:
             current = current.next
 
-        if prev is None:
-            self.InsertHead(node)
+        node.next = current.next
+        current.next = node
+        if current == self.tail:
+            self.tail = node
             self.tail.next = self.head
-        else:
-            node.next = current
-            prev.next = node
-            if current is None:
-                self.tail = node
-                self.tail.next = self.head
+
         self.size += 1
 
 
@@ -157,8 +160,6 @@ class CircularSinglyLinkedList(SinglyLinkedList):
                 current = current.next
                 if current == self.head:
                     break
-
-
 
     def isSorted(self):
         if self.head is None:
