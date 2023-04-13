@@ -1,4 +1,5 @@
 from datastructures.Linear.SLL import SinglyLinkedList
+from datastructures.nodes.SNode import SNode
 class CircularSinglyLinkedList(SinglyLinkedList):
     def __init__(self, head=None):
         super().__init__(head)
@@ -10,6 +11,9 @@ class CircularSinglyLinkedList(SinglyLinkedList):
         if self.size == 1:
             self.tail = node
             self.tail.next = self.head
+        else:
+            self.tail.next = self.head
+
 
     def InsertTail(self, node):
         super().InsertTail(node)
@@ -29,13 +33,40 @@ class CircularSinglyLinkedList(SinglyLinkedList):
             current.next = node
             self.size += 1
 
+    def SortedInsert(self, node):
+        if self.size == 0:
+            self.InsertHead(node)
+            self.tail = node
+            self.tail.next = self.head
+            return
+
+        current = self.head
+        prev = None
+        while current is not None and current.data < node.data:
+            prev = current
+            current = current.next
+
+        if prev is None:
+            self.InsertHead(node)
+            self.tail.next = self.head
+        else:
+            node.next = current
+            prev.next = node
+            if current is None:
+                self.tail = node
+                self.tail.next = self.head
+        self.size += 1
+
+
 
     def DeleteHead(self):
         if self.size > 0:
             if self.size == 1:
+                self.head = None
                 self.tail = None
-            self.head = self.head.next
-            self.tail.next = self.head
+            else:
+                self.tail.next = self.head.next
+                self.head = self.head.next
             self.size -= 1
 
     def DeleteTail(self):
@@ -65,52 +96,63 @@ class CircularSinglyLinkedList(SinglyLinkedList):
                 return
             prev = current
             current = current.next
-
+    
     def Sort(self):
         if self.size <= 1:
             return
 
-        current = self.head.next
-        while current is not None:
-            node_to_insert = current
+        current = self.head
+        while True:
+            index = current.next
+            while index != self.head:
+                if current.data > index.data:
+                    # Swap the data of the two nodes
+                    temp = current.data
+                    current.data = index.data
+                    index.data = temp
+                index = index.next
             current = current.next
-            self.Delete(node_to_insert)
+            if current.next == self.head:
+                break
 
-            prev = None
-            insert_after = self.head
-            while insert_after is not None and insert_after.data <= node_to_insert.data:
-                prev = insert_after
-                insert_after = insert_after.next
-                if insert_after == self.head:
-                    break
+        # Update head and tail pointers
+        self.tail = self.head
+        while self.tail.next != self.head:
+            self.tail = self.tail.next
+        self.tail.next = self.head
 
-            if prev is None:
-                self.InsertHead(node_to_insert)
-            else:
-                node_to_insert.next = insert_after
-                prev.next = node_to_insert
-                
+
+
+
     def Print(self):
         print("List length:", self.size)
-        
-        sorted_status = True
-        prev_node = self.head.next
-        current_node = prev_node.next
-        while current_node is not None:
-            if current_node.data < prev_node.data:
-                sorted_status = False
-                break
-            prev_node = current_node
-            current_node = current_node.next
 
-        if sorted_status:
+        if self.isSorted():
             print("Sorted status: sorted")
         else:
             print("Sorted status: unsorted")
 
         print("List content:")
-        current = self.head.next
-        while current is not None:
+        if self.head is not None:
+            current = self.head
             print(current.data)
             current = current.next
+            while current != self.head:
+                print(current.data)
+                current = current.next
+                if current == self.head:
+                    break
+
+
+
+    def isSorted(self):
+        if self.head is None:
+            return True
+        current = self.head
+        while current.next != self.head:
+            if current.data > current.next.data:
+                return False
+            current = current.next
+        return True
+
 
