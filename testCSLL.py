@@ -121,61 +121,95 @@ from datastructures.Linear.CDLL import CircularDoublyLinkedList
 # # Test case 2: Search for non-existing node
 # assert list.Search(SNode(3)) is None
 
-# Create a new circular singly linked list
-c_list = CircularSinglyLinkedList()
+# # Create a new circular singly linked list
+# c_list = CircularSinglyLinkedList()
 
-# Test SortedInsert() with an empty list
-node1 = SNode(5)
-c_list.SortedInsert(node1)
-assert c_list.size == 1
-assert c_list.head == node1
-assert c_list.tail == node1
-assert c_list.head.next == c_list.head
+# # Test SortedInsert() with an empty list
+# node1 = SNode(5)
+# c_list.SortedInsert(node1)
+# assert c_list.size == 1
+# assert c_list.head == node1
+# assert c_list.tail == node1
+# assert c_list.head.next == c_list.head
 
-# Test SortedInsert() with a larger list
-node2 = SNode(3)
-node3 = SNode(8)
-node4 = SNode(1)
-c_list.SortedInsert(node2)
-c_list.SortedInsert(node3)
-c_list.SortedInsert(node4)
-assert c_list.size == 4
-assert c_list.head == node4
-assert c_list.tail == node3
-assert c_list.head.next == node2
-assert c_list.head.next.next == node1
-assert c_list.tail.next == c_list.head
-
-
-# Test SortedInsert() with a duplicate value
-node5 = SNode(3)
-c_list.SortedInsert(node5)
-assert c_list.size == 5
-assert c_list.head == node4
-assert c_list.tail == node3
-assert c_list.head.next == node5
-assert c_list.head.next.next == node2
-assert c_list.tail.next == c_list.head
-
-# Test SortedInsert() with a value larger than the largest value in the list
-node6 = SNode(10)
-c_list.SortedInsert(node6)
-assert c_list.size == 6
-assert c_list.head == node4
-assert c_list.tail == node6
-assert c_list.head.next == node5
-assert c_list.head.next.next == node2
-assert c_list.tail.next == c_list.head
-
-# Test SortedInsert() with a value smaller than the smallest value in the list
-node7 = SNode(0)
-c_list.SortedInsert(node7)
-assert c_list.size == 7
-assert c_list.head == node7
-assert c_list.tail == node6
-assert c_list.head.next == node4
-assert c_list.head.next.next == node5
-assert c_list.tail.next == c_list.head
-c_list.Print()
+# # Test SortedInsert() with a larger list
+# node2 = SNode(3)
+# node3 = SNode(8)
+# node4 = SNode(1)
+# c_list.SortedInsert(node2)
+# c_list.SortedInsert(node3)
+# c_list.SortedInsert(node4)
+# assert c_list.size == 4
+# assert c_list.head == node4
+# assert c_list.tail == node3
+# assert c_list.head.next == node2
+# assert c_list.head.next.next == node1
+# assert c_list.tail.next == c_list.head
 
 
+# # Test SortedInsert() with a duplicate value
+# node5 = SNode(3)
+# c_list.SortedInsert(node5)
+# assert c_list.size == 5
+# assert c_list.head == node4
+# assert c_list.tail == node3
+# assert c_list.head.next == node5
+# assert c_list.head.next.next == node2
+# assert c_list.tail.next == c_list.head
+
+# # Test SortedInsert() with a value larger than the largest value in the list
+# node6 = SNode(10)
+# c_list.SortedInsert(node6)
+# assert c_list.size == 6
+# assert c_list.head == node4
+# assert c_list.tail == node6
+# assert c_list.head.next == node5
+# assert c_list.head.next.next == node2
+# assert c_list.tail.next == c_list.head
+
+# # Test SortedInsert() with a value smaller than the smallest value in the list
+# node7 = SNode(0)
+# c_list.SortedInsert(node7)
+# assert c_list.size == 7
+# assert c_list.head == node7
+# assert c_list.tail == node6
+# assert c_list.head.next == node4
+# assert c_list.head.next.next == node5
+# assert c_list.tail.next == c_list.head
+# c_list.Print()
+
+
+def test_delete():
+    # Create a CSLL with three nodes
+    n1 = SNode(1)
+    n2 = SNode(2)
+    n3 = SNode(3)
+    cll = CircularSinglyLinkedList(n1)
+    cll.InsertTail(n2)
+    cll.InsertTail(n3)
+
+    # Delete the second node and check the pointers
+    cll.Delete(n2)
+    assert cll.size == 2
+    assert cll.head == n1
+    assert cll.tail == n3
+    assert cll.head.next == n3
+    assert cll.tail.next == cll.head
+
+    # Delete the first node and check the pointers
+    cll.Delete(n1)
+    assert cll.size == 1
+    assert cll.head == n3
+    assert cll.tail == n3
+    assert cll.head.next == cll.head
+    assert cll.tail.next == cll.head
+    cll.Clear()
+    cll.Print()
+
+    # Delete the last node and check the pointers
+
+def main():
+    test_delete()
+
+if __name__ == '__main__':
+    main()

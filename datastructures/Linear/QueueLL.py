@@ -1,22 +1,45 @@
 from datastructures.Linear.SLL import SinglyLinkedList
-from datastructures.nodes.SNode import SNode
+
 class LLQueue(SinglyLinkedList):
     def __init__(self):
         super().__init__()
-        self.tail = None
 
-    def enque(self, value):
-        node = SNode(value)
-        if self.tail:
-            self.tail.next = node
-            self.tail = node
-        else:
-            self.head = node
-            self.tail = node
-        self.length += 1
+    def enqueue(self, node):
+        """
+        Add a node to the end of the queue.
+        """
+        self.InsertTail(node)
 
     def dequeue(self):
-        return self.pop_front()
+        """
+        Remove and return the node at the front of the queue.
+        """
+        node = self.get_head()
+        if node is not None:
+            self.Delete(node)
+        return node
 
-    def size(self):
-        return self.length
+    def is_empty(self):
+        """
+        Return True if the queue is empty, else False.
+        """
+        return super().is_empty()
+
+    # Override all the methods in LinkedList that don't apply to queues
+    def InsertHead(self, node):
+        pass
+
+    def Insert(self, node, position):
+        pass
+
+    def SortedInsert(self, node):
+        pass
+
+    def DeleteHead(self):
+        pass
+
+    def DeleteTail(self):
+        pass
+
+    def Delete(self, node):
+        super().delete(node)

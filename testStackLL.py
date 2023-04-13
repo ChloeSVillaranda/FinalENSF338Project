@@ -4,10 +4,10 @@ from datastructures.Linear.DLL import DoublyLinkedList
 from datastructures.nodes.DNode import DNode
 from datastructures.Linear.CSLL import CircularSinglyLinkedList
 from datastructures.Linear.CDLL import CircularDoublyLinkedList
-from datastructures.Linear.StackLL import SLLStack
+from datastructures.Linear.StackLL import LLStack
 # from datastructures.Linear.QueueLL import QueueStack
 # Create an empty stack
-stack = SLLStack()
+stack = LLStack()
 
 # Test pushing elements onto the stack
 stack.push(SNode(1))

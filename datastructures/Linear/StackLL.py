@@ -1,5 +1,5 @@
 from datastructures.Linear.SLL import SinglyLinkedList
-class SLLStack(SinglyLinkedList):
+class LLStack(SinglyLinkedList):
     def __init__(self):
         super().__init__()
 

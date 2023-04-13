@@ -162,7 +162,11 @@ def test_sort_list():
     cll.Sort()
 
     # Check that the list is sorted
+    cll.Clear()
     cll.Print()
+    assert cll.head == None
+
+
 
 def main():
     # test_delete_node()
