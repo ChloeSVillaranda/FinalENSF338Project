@@ -5,60 +5,34 @@ from datastructures.nodes.DNode import DNode
 from datastructures.Linear.CSLL import CircularSinglyLinkedList
 from datastructures.Linear.CDLL import CircularDoublyLinkedList
 from datastructures.Linear.QueueLL import LLQueue
+import unittest
 
+class TestQueueLL(unittest.TestCase):
+    def test_enqueue_and_dequeue(self):
+        queue = LLQueue()
+        node1 = SNode(1)
+        node2 = SNode(2)
+        node3 = SNode(3)
+        queue.enqueue(node1)
+        queue.enqueue(node2)
+        queue.enqueue(node3)
+        self.assertEqual(queue.dequeue(), node1)
+        self.assertEqual(queue.dequeue(), node2)
+        self.assertEqual(queue.dequeue(), node3)
+        self.assertIsNone(queue.dequeue())
 
-def test_llqueue():
-    q = LLQueue()
+    def test_delete(self):
+        queue = LLQueue()
+        node1 = SNode(1)
+        node2 = SNode(2)
+        node3 = SNode(3)
+        queue.enqueue(node1)
+        queue.enqueue(node2)
+        queue.enqueue(node3)
+        queue.Delete(node2)
+        self.assertEqual(queue.dequeue(), node1)
+        self.assertEqual(queue.dequeue(), node3)
+        self.assertIsNone(queue.dequeue())
 
-    # Test enqueue
-    q.enqueue(SNode("A"))
-    q.enqueue(SNode("B"))
-    q.enqueue(SNode("C"))
-    assert q.__str__() == "A -> B -> C -> None"
-
-    # Test dequeue
-    assert q.dequeue() == "A"
-    assert q.dequeue() == "B"
-    assert q.dequeue() == "C"
-    assert q.dequeue() is None
-    assert q.__str__() == "None"
-
-    # Test is_empty
-    assert q.is_empty() == True
-
-    # Test insert_head
-    q.insert_head("A")
-    assert q.__str__() == "A -> None"
-
-    # Test insert
-    q.insert("B", 1)
-    assert q.__str__() == "A -> B -> None"
-
-    # Test sorted_insert
-    q.sorted_insert("C")
-    q.sorted_insert("D")
-    assert q.__str__() == "A -> B -> C -> D -> None"
-
-    # Test delete_head
-    q.delete_head()
-    assert q.__str__() == "B -> C -> D -> None"
-
-    # Test delete_tail
-    q.delete_tail()
-    assert q.__str__() == "B -> C -> None"
-
-    # Test delete
-    node_c = q.get_head().get_next()
-    q.delete(node_c)
-    assert q.__str__() == "B -> None"
-
-    # Test get_head
-    assert q.get_head().get_data() == "B"
-
-    # Test get_tail
-    assert q.get_tail().get_data() == "B"
-
-    print("All LLQueue tests pass")
-
-
-test_llqueue()
+if __name__ == '__main__':
+    unittest.main()

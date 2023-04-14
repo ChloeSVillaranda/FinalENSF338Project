@@ -5,27 +5,20 @@ class LLQueue(SinglyLinkedList):
         super().__init__()
 
     def enqueue(self, node):
-        """
-        Add a node to the end of the queue.
-        """
         self.InsertTail(node)
 
     def dequeue(self):
-        """
-        Remove and return the node at the front of the queue.
-        """
-        node = self.get_head()
-        if node is not None:
-            self.Delete(node)
+        if self.head is None:
+            return None
+
+        node = self.head
+        self.head = self.head.next
+
+        if self.head is None:
+            self.tail = None
+
         return node
 
-    def is_empty(self):
-        """
-        Return True if the queue is empty, else False.
-        """
-        return super().is_empty()
-
-    # Override all the methods in LinkedList that don't apply to queues
     def InsertHead(self, node):
         pass
 
@@ -42,4 +35,4 @@ class LLQueue(SinglyLinkedList):
         pass
 
     def Delete(self, node):
-        super().delete(node)
+        super().Delete(node)
