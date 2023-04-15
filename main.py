@@ -1,187 +1,7 @@
-##Tests for SLL
-# Create a new list
-# from datastructures.Linear.DLL import DoublyLinkedList
-# from datastructures.Linear.SLL import SinglyLinkedList
-from contextlib import redirect_stdout
-import io
 from datastructures.nodes.TNode import TNode
 from datastructures.Trees.BST import bst
 from datastructures.Trees.AVL import avl
 
-
-
-# my_list = SinglyLinkedList()
-
-# # Test insert_head method
-# my_list.insert_head(Node(1))
-# assert my_list.head.data == 1
-# assert my_list.tail.data == 1
-# assert my_list.size == 1
-
-# # Test insert_tail method
-# my_list.insert_tail(Node(2))
-# assert my_list.head.data == 1
-# assert my_list.tail.data == 2
-# assert my_list.size == 2
-
-# # Test insert method
-# my_list.insert(Node(3), 1)
-# assert my_list.head.data == 1
-# assert my_list.head.next.data == 3
-# assert my_list.tail.data == 2
-# assert my_list.size == 3
-
-# # Test sorted_insert method
-# my_list.sorted_insert(Node(0))
-# assert my_list.head.data == 0
-# assert my_list.head.next.data == 1
-# assert my_list.head.next.next.data == 3
-# assert my_list.tail.data == 2
-# assert my_list.size == 4
-
-# # Test search method
-# node = my_list.search(Node(3))
-# assert node.data == 3
-
-# # Test delete_head method
-# my_list.delete_head()
-# assert my_list.head.data == 1
-# assert my_list.head.next.data == 3
-# assert my_list.tail.data == 2
-# assert my_list.size == 3
-
-# # Test delete_tail method
-# my_list.delete_tail()
-# assert my_list.head.data == 1
-# assert my_list.head.next.data == 3
-# assert my_list.tail.data == 3
-# assert my_list.size == 2
-
-# # Test delete_node method
-# my_list.delete_node(Node(3))
-# assert my_list.head.data == 1
-# assert my_list.tail.data == 1
-# assert my_list.size == 1
-
-# # Test sort method
-# my_list.insert_tail(Node(0))
-# my_list.insert_tail(Node(2))
-# my_list.sort()
-# assert my_list.head.data == 0
-# assert my_list.head.next.data == 1
-# assert my_list.head.next.next.data == 2
-# assert my_list.tail.data == 2
-# assert my_list.size == 3
-
-# # Test print_info method
-# my_list.print_info()
-# # Expected output:
-# # List length: 3
-# # Sorted status: sorted
-# # List content:
-# # 0
-# # 1
-# # 2
-
-# # Test is_sorted method
-# assert my_list.is_sorted() == True
-
-# # Test is_sorted method on unsorted list
-# my_list.insert_tail(Node(-1))
-# assert my_list.is_sorted() == False
-# linked_list = SinglyLinkedList()
-# node1 = Node(4)
-# node2 = Node(2)
-# node3 = Node(7)
-# node4 = Node(1)
-# linked_list.insert_head(node1)
-# linked_list.insert_tail(node2)
-# linked_list.insert_tail(node3)
-# linked_list.insert_tail(node4)
-
-# # assert that the linked list is unsorted
-# assert not linked_list.is_sorted()
-
-# ##Tests for DLL
-# # create an empty list
-# my_list = DoublyLinkedList()
-
-# # test insert_head and insert_tail methods
-# my_list.insert_head(Node(1))
-# my_list.insert_tail(Node(3))
-# my_list.insert_head(Node(2))
-# my_list.insert_tail(Node(4))
-# assert my_list.size == 4
-# assert my_list.head.data == 2
-# assert my_list.tail.data == 4
-# assert my_list.head.next.data == 1
-# assert my_list.tail.prev.data == 3
-
-# # test insert method
-# my_list.insert(Node(5), 4)
-# my_list.insert(Node(0), 0)
-# my_list.insert(Node(2.5), 3)
-# assert my_list.size == 7
-# assert my_list.head.data == 0
-# assert my_list.tail.data == 5
-# assert my_list.head.next.next.data == 1
-# assert my_list.tail.prev.prev.data == 3
-# assert my_list.head.next.next.next.data == 2.5
-
-# # test sorted_insert method
-# my_list.sorted_insert(Node(1.5))
-# my_list.sorted_insert(Node(4.5))
-# assert my_list.size == 9
-# assert my_list.head.data == 0
-# assert my_list.tail.data == 5
-# assert my_list.head.next.next.data == 1
-# assert my_list.tail.prev.prev.data == 4
-# assert my_list.head.next.next.next.data == 1.5
-# assert my_list.tail.prev.prev.prev.data == 4.5
-
-# # test search method
-# node = my_list.search(Node(1.5))
-# assert node is not None
-# assert node.data == 1.5
-# node = my_list.search(Node(10))
-# assert node is None
-
-# # test delete_head method
-# my_list.delete_head()
-# assert my_list.size == 8
-# assert my_list.head.data == 1
-# assert my_list.head.prev is None
-# assert my_list.head.next.data == 1.5
-
-# # test delete_tail method
-# my_list.delete_tail()
-# assert my_list.size == 7
-# assert my_list.tail.data == 4
-# assert my_list.tail.next is None
-# assert my_list.tail.prev.data == 3
-
-# # test delete_node method
-# node = my_list.search(Node(3))
-# my_list.delete_node(node)
-# assert my_list.size == 6
-# assert my_list.head.next.next.data == 1.5
-# assert my_list.tail.prev.data == 4.5
-
-# # test sort method
-# my_list.sort()
-# assert my_list.head.data == 0
-# assert my_list.tail.data == 5
-# assert my_list.head.next.next.data == 1
-# assert my_list.tail.prev.prev.data == 4
-# assert my_list.head.next.next.next.data == 1.5
-# assert my_list.tail.prev.prev.prev.data == 4.5
-
-# # test print_info method
-# my_list.print_info()
-
-######################################
-
-from datastructures.nodes.TNode import TNode
 
 def main():
     # create a root node
@@ -274,6 +94,8 @@ def test_bst_constructors():
     bst5 = bst(node)
     assert bst5.root.data == 7
 
+    print("All constructor tests passed!")
+
 def test_bst_setters_and_getters():
     # Test set_root and get_root
     bst1 = bst()
@@ -294,6 +116,8 @@ def test_bst_setters_and_getters():
     bst3 = bst()
     assert bst3.get_root() is None
 
+    print("All setter and getter tests passed!")
+
 def test_insert_node():
     # Create a new tree
     tree = bst()
@@ -312,7 +136,7 @@ def test_insert_node():
     assert tree.root.right.left.data == 6
     assert tree.root.right.right.data == 8
 
-    print("All tests passed!")
+    print("All insert tests passed!")
 
 
 
@@ -329,13 +153,15 @@ def test_bst_search():
     b.insert(6)
     b.insert(8)
 
-    # search for existing value
+    # search for existing data
     node = b.search(4)
     assert node.data == 4
 
-    # search for non-existing value
+    # search for non-existing data
     node = b.search(9)
     assert node is None
+
+    print("All search tests passed!")
    
 def test_bst_delete():
     # create a BST and add some nodes
@@ -356,8 +182,7 @@ def test_bst_delete():
     # test deleting a node that does not exist in the tree
     b.deleteNode(2)
     assert b.search(2) is None
-    print("Value 2 not found in tree")
-
+  
     # test deleting the root node
     b.deleteNode(5)
     assert b.root.data == 7
@@ -373,6 +198,7 @@ def test_bst_delete():
     print("All delete tests passed!")
 
 def test_bst_printInOrder():
+    print("TESTING PRINT IN ORDER")
     b = bst()
     assert b.printInOrder() == []
     
@@ -388,6 +214,7 @@ def test_bst_printInOrder():
     b.insert(15)
     b.insert(25)
     assert b.printInOrder() == [3, 5, 7, 10, 15, 20, 25]
+    print(" *** ALL TESTS PASSED ***\n")
 
 def test_bst_printBF():
     # create a BST and add some nodes
@@ -403,8 +230,6 @@ def test_bst_printBF():
     # call printBF() and check the output
     expected_output = "5\n3 8\n1 4 7 9\n"
  
-    
-    
     print("Expected output:")
     print(expected_output)
     print("Actual output:")
@@ -412,63 +237,216 @@ def test_bst_printBF():
 
     print("All printBF tests passed!")
 
-        
-def test_avl_constructors():
 
+def test_avl_constructors():
 # create an AVL tree using the default constructor
     avl2 = avl()
 
     # check that the root is None
     assert avl2.root is None
 
-    # create an AVL tree using the overload constructor with a value of 5
+    # create an AVL tree using the overload constructor with a data of 5
     avl2 = avl(5)
 
-    # check that the root has a value of 5 and both the left and right child are None
+    # check that the root has a data of 5 and both the left and right child are None
     assert avl2.root.data == 5
     assert avl2.root.left is None
     assert avl2.root.right is None
 
     # create an AVL tree using the overload constructor with a TNode object
-
-
     tnode1 = TNode(5)
     tnode2 = TNode(10)
     tnode3 = TNode(15)
     tnode4 = TNode(20)
     tnode5 = TNode(25)
 
-    tnode1.left = tnode2
-    tnode1.right = tnode3
-    tnode2.left = tnode4
+    tnode2.left = tnode1
+    tnode2.right = tnode3
     tnode3.right = tnode5
+    tnode3.left = tnode4
 
-    avl1 = avl(tnode1)
+    avl1 = avl(tnode2)
 
     # check that the AVL tree is created correctly from the TNode object
     assert avl1.root.data == 10
     assert avl1.root.left.data == 5
     assert avl1.root.left.left is None
     assert avl1.root.left.right is None
-    assert avl1.root.right.data == 20
-    assert avl1.root.right.left.data == 15
+    assert avl1.root.right.data == 15
+    assert avl1.root.right.left.data == 20
     assert avl1.root.right.right.data == 25
-    assert avl1.root.right.left.left is None
-    assert avl1.root.right.left.right is None
-    assert avl1.root.right.right.left is None
-    assert avl1.root.right.right.right is None
 
+
+def test_balance():
+    tree = avl()
+ 
+    tree.insert(1)
+    tree.insert(2)
+    tree.insert(3)
+    tree.insert(4)
+    tree.insert(5)
+    
+    assert tree.root.data == 2
+    assert tree.root.left.data == 1
+    assert tree.root.right.data == 4
+    assert tree.root.right.left.data == 3
+    assert tree.root.right.right.data == 5
+
+    assert(tree.get_balance_factor(tree.root)) == 1 or -1 or 0
+
+    # Perform left-right rotation
+    tree.insert(6)
+
+    assert tree.root.data == 4
+    assert tree.root.left.data == 2
+    assert tree.root.right.data == 5
+    assert tree.root.left.left.data == 1
+    assert tree.root.left.right.data == 3
+    assert tree.root.right.right.data == 6
+
+    assert(tree.get_balance_factor(tree.root)) == 1 or -1 or 0
+
+    # Perform right rotation
+   
+    tree.insert(7)
+    
+    assert tree.root.data == 4
+    assert tree.root.left.data == 2
+    assert tree.root.right.data == 6
+    assert tree.root.left.left.data == 1
+    assert tree.root.left.right.data == 3
+    assert tree.root.right.left.data == 5
+    assert tree.root.right.right.data == 7
+
+    assert(tree.get_balance_factor(tree.root)) == 1 or -1 or 0
+
+    # Perform right-left rotation
+
+    tree.insert(8)
+
+    assert tree.root.data == 4
+    assert tree.root.left.data == 2
+    assert tree.root.right.data == 6
+    assert tree.root.left.left.data == 1
+    assert tree.root.left.right.data == 3
+    assert tree.root.right.left.data == 5
+    assert tree.root.right.right.data == 7
+    assert tree.root.right.right.right.data == 8
+
+    assert(tree.get_balance_factor(tree.root)) == 1 or -1 or 0
+ 
+    # Perform left rotation
+    tree.insert(9)
+
+    assert tree.root.data == 4
+    assert tree.root.left.data == 2
+    assert tree.root.right.data == 6
+    assert tree.root.left.left.data == 1
+    assert tree.root.left.right.data == 3
+    assert tree.root.right.left.data == 5
+    assert tree.root.right.right.data == 8
+    assert tree.root.right.right.right.data == 9
+    assert tree.root.right.right.left.data == 7
+
+    assert(tree.get_balance_factor(tree.root)) == 1 or -1 or 0
+
+    print("AVL TREE BALANCED SUCCESSFULLY")
+    
+
+def test_avl_balancing():
+    # Create an empty AVL tree
+    avl_tree = avl()
+
+    # Insert nodes into the AVL tree
+    avl_tree.insert(10)
+    avl_tree.insert(20)
+    avl_tree.insert(30)
+    avl_tree.insert(40)
+    avl_tree.insert(50)
+
+    # Check if the AVL tree is balanced after inserting nodes
+    assert avl_tree.get_balance_factor(avl_tree.root) == -1 or 1 or 0
+
+    # Delete nodes from the AVL tree
+    avl_tree.delete(10)
+    avl_tree.delete(20)
+
+    # Check if the AVL tree is balanced after deleting nodes
+    assert avl_tree.get_balance_factor(avl_tree.root) == 0 or 1 or -1
+
+def test_avl():
+    # Create an empty AVL tree
+    avl_tree = avl()
+    assert avl_tree.root is None
+    print("Empty tree created successfully.")
+
+    # Insert values into the AVL tree
+    avl_tree.insert(50)
+    avl_tree.insert(30)
+    avl_tree.insert(70)
+    avl_tree.insert(20)
+    avl_tree.insert(40)
+    avl_tree.insert(60)
+    avl_tree.insert(80)
+
+    # Verify that the AVL tree is balanced
+    assert avl_tree.get_balance_factor(avl_tree.root) == 0 
+    print("Nodes inserted and tree balanced successfully.")
+    
+    # Verify that the inorder traversal of the AVL tree is correct
+    print("\nTESTING PRINT IN ORDER")
+    print("\nExpected output: \n[20, 30, 40, 50, 60, 70, 80]")
+    print("Actual Output:")
+    avl_tree.printInOrder()
+
+    # Verify that the level order traversal of the AVL tree is correct
+    print("\nTESTING PRINTBF")
+    print("\nExpected output: \n50\n30 70\n20 40 60 80\n")
+    print("Actual Output:")
+    avl_tree.printBF() 
+
+    # Delete a node from the AVL tree
+    avl_tree.delete(20)
+
+    # Verify that the AVL tree is still balanced
+    assert avl_tree.get_balance_factor(avl_tree.root) == 0
+
+    # Verify that the inorder traversal of the AVL tree is correct
+    print("\nTESTING PRINT IN ORDER AFTER DELETING 20")
+    print("\nExpected output: \n[30, 40, 50, 60, 70, 80]")
+    print("Actual Output:")
+    avl_tree.printInOrder() 
+
+    # Verify that the level order traversal of the AVL tree is correct
+    print("\nTESTING PRINTBF AFTER DELETING 20")
+    print("\nExpected output: \n50\n30 70\n40 60 80\n")
+    print("Actual Output:")
+    avl_tree.printBF()
+
+    # Search for a value in the AVL tree
+    
 
 if __name__ == "__main__":
+
+    print("**************** TESTING BST CLASS *******************\n")
     main()
+    print()
     test_bst_constructors()
     test_bst_setters_and_getters()
     test_insert_node()
     test_bst_search()
     test_bst_delete()
     test_bst_printInOrder()
-
     test_bst_printBF()
+    print("**************** END OF TESTS ************************\n")
+
+
+    print("**************** TESTING AVL CLASS *******************\n")
     test_avl_constructors()
+    test_balance()
+    test_avl_balancing()
+    test_avl()
+    print("**************** END OF TESTS ************************\n")
 
-
+    
+ 

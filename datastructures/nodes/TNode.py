@@ -53,4 +53,8 @@ class TNode(object):
 
     def to_string(self):
         return str(self.data)
+    
+
+    def __lt__(self, other):
+        return self.data < other.data
 
