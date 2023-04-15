@@ -2,12 +2,12 @@
 class TNode(object):
 
  # CONSTRUCTOR
-    def __init__(self, data=None, L=None, R=None, P=None, balance=None):
-        self.data = data 
-        self.left = L
-        self.right = R 
-        self.parent = P 
-        self.balance = balance
+    def __init__(self, data=None, left=None, right=None, parent=None, balance =None):
+            self.data = data
+            self.left = left
+            self.right = right
+            self.parent = parent
+            self.balance = balance
 
   # GETTERS
     def get_data(self):
@@ -42,9 +42,19 @@ class TNode(object):
         self.balance = value
 
 # METHODS 
+    # def print(self):
+    #     print(f"Node Information:\n Data: {self.data} \n Left Child: {self.left} \n Right Child: {self.right} \n Parent: {self.parent} \n Balance: {self.balance}")
+
     def print(self):
-        print(f"Node Information:\n Data: {self.data} \n Left Child: {self.left} \n Right Child: {self.right} \n Parent: {self.parent} \n Balance: {self.balance}")
+        left_str = self.left.to_string() if self.left is not None else "None"
+        right_str = self.right.to_string() if self.right is not None else "None"
+        parent_str = self.parent.to_string() if self.parent is not None else "None"
+        print(f"Node Information:\n Data: {self.data} \n Left Child: {left_str} \n Right Child: {right_str} \n Parent: {parent_str} \n Balance: {self.balance}")
 
     def to_string(self):
         return str(self.data)
+    
+
+    def __lt__(self, other):
+        return self.data < other.data
 

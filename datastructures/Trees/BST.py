@@ -1,130 +1,179 @@
 from datastructures.nodes.TNode import TNode
+from queue import Queue
 
-class BST:
+class bst:
+    """
+    Binary Search Tree implementation.
+    
+    """
+   
     def __init__(self, root=None):
-        self.root = root
+        if root is None:
+            self._root = None
+        elif isinstance(root, int):
+            self._root = TNode(data=root)
+        elif isinstance(root, TNode):
+            self._root = root
+        else:
+            raise TypeError("Invalid argument for root node.")
 
     def get_root(self):
-        return self.root
+        return self._root
 
-    def set_root(self, root):
-        self.root = root
-
-    def insert(self, val):
-        node = TNode(val)
-        if self.root is None:
-            self.root = node
+    def set_root(self, node):
+        if node is None:
+            self._root = None
+        elif isinstance(node, TNode):
+            self._root = node
         else:
-            curr = self.root
+            raise TypeError("Invalid argument for root node.")
+
+    root = property(get_root, set_root)
+
+    def insert(self, value):
+        # Check if the tree is empty
+        if self._root is None:
+            self._root = TNode(value)
+        else:
+            # Traverse the tree to find the correct position for the new node
+            current = self._root
             while True:
-                if val < curr.val:
-                    if curr.left is None:
-                        curr.left = node
+                if value < current.data:
+                    if current.left is None:
+                        current.left = TNode(value)
+                        current.left.parent = current
                         break
                     else:
-                        curr = curr.left
-                elif val > curr.val:
-                    if curr.right is None:
-                        curr.right = node
+                        current = current.left
+                else:
+                    if current.right is None:
+                        current.right = TNode(value)
+                        current.right.parent = current
                         break
                     else:
-                        curr = curr.right
+                        current = current.right
 
     def insert_node(self, node):
-        if self.root is None:
-            self.root = node
+        # Check if the tree is empty
+        if self._root is None:
+            self._root = node
         else:
-            curr = self.root
+            # Traverse the tree to find the correct position for the new node
+            current = self._root
             while True:
-                if node.val < curr.val:
-                    if curr.left is None:
-                        curr.left = node
+                if node.data < current.data:
+                    if current.left is None:
+                        current.left = node
+                        current.left.parent = current
                         break
                     else:
-                        curr = curr.left
-                elif node.val > curr.val:
-                    if curr.right is None:
-                        curr.right = node
+                        current = current.left
+                else:
+                    if current.right is None:
+                        current.right = node
+                        current.right.parent = current
                         break
                     else:
-                        curr = curr.right
+                        current = current.right
+
 
     def search(self, val):
-        curr = self.root
-        while curr is not None:
-            if curr.val == val:
-                return curr
-            elif val < curr.val:
-                curr = curr.left
+        """
+        Searches for the node with val as data and returns it, or returns None if not found.
+        """
+        node = self._root
+        while node is not None:
+            if val == node.data:
+                return node
+            elif val < node.data:
+                node = node.left
             else:
-                curr = curr.right
+                node = node.right
         return None
 
-    def delete(self, val):
-        parent = None
-        curr = self.root
+    def printInOrder(self):
+        nodes = []
+        self._printInOrderHelper(self.root, nodes)
+        print(nodes)
+        return nodes
 
-        # Find the node to be deleted and its parent
-        while curr is not None and curr.val != val:
-            parent = curr
-            if val < curr.val:
-                curr = curr.left
-            else:
-                curr = curr.right
-
-        # If the node is not found, print an error message and return
-        if curr is None:
-            print("Value not found in tree")
-            return
-
-        # If the node has two children, find the successor and replace the node
-        if curr.left is not None and curr.right is not None:
-            successor = curr.right
-            while successor.left is not None:
-                successor = successor.left
-            curr.val = successor.val
-            curr = successor
-
-        # At this point, curr has zero or one child
-        if curr.left is not None:
-            child = curr.left
-        else:
-            child = curr.right
-
-        # If the node to be deleted is the root, set the child as the new root
-        if parent is None:
-            self.root = child
-        elif curr == parent.left:
-            parent.left = child
-        else:
-            parent.right = child
-
-    def print_inorder(self, node=None):
+    def _printInOrderHelper(self, node, nodes):
         if node is None:
-            node = self.root
-        if node is not None:
-            self.print_inorder(node.left)
-            print(node.val, end=' ')
-            self.print_inorder(node.right)
-
-    def print_bf(self):
-        if self.root is None:
             return
-
-        queue = [self.root]
-
-        while queue:
-            curr_level_nodes = len(queue)
-            for i in range(curr_level_nodes):
-                node = queue.pop(0)
-                print(node.val, end=' ')
-
-                if node.left:
-                    queue.append(node.left)
-
-                if node.right:
-                    queue.append(node.right)
-
-            print()
+        self._printInOrderHelper(node.left, nodes)
+        nodes.append(node.data)
+        self._printInOrderHelper(node.right, nodes)
 
     
+    def deleteNode(self, key):
+        self.root = self._delete(self.root, key)
+
+
+    def _delete(self, node, key):
+        if node is None:
+            return None
+
+        if key < node.data:
+            node.left = self._delete(node.left, key)
+        elif key > node.data:
+            node.right = self._delete(node.right, key)
+        else:
+            if node.left is None and node.right is None:
+                node = None
+            elif node.left is None:
+                node = node.right
+            elif node.right is None:
+                node = node.left
+            else:
+                # find the smallest node in the right subtree
+                temp = node.right
+                while temp.left is not None:
+                    temp = temp.left
+                
+                # replace the node we want to delete with the smallest node
+                node.data = temp.data
+                
+                # delete the smallest node from the right subtree
+                node.right = self._delete(node.right, temp.data)
+
+        return node
+
+    def _find_min(self, node):
+        while node.left is not None:
+            node = node.left
+        return node
+
+    def printBF(self):
+        # check if the tree is empty
+        if self.root is None:
+            print("Tree is empty")
+            return
+
+        # create a queue and put the root node in it
+        queue = Queue()
+        queue.put(self.root)
+
+        # loop through the queue until it is empty
+        while not queue.empty():
+            # get the number of nodes in the current level of the tree
+            level_size = queue.qsize()
+
+            # loop through the nodes in the current level
+            for i in range(level_size):
+                # get the next node from the queue and print its data
+                node = queue.get()
+                print(node.data, end=' ')
+
+                # put the left and right child nodes in the queue if they exist
+                if node.left is not None:
+                    queue.put(node.left)
+                if node.right is not None:
+                    queue.put(node.right)
+
+            # print a newline character to move to the next line of the tree
+            print()
+
+
+
+
+
