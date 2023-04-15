@@ -1,5 +1,4 @@
 from datastructures.nodes.TNode import TNode
-from datastructures.Trees.BST import bst
 from datastructures.Trees.AVL import avl
 
 def test_avl_constructors():
