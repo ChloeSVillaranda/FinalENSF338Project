@@ -46,12 +46,12 @@ class TNode(object):
     #     print(f"Node Information:\n Data: {self.data} \n Left Child: {self.left} \n Right Child: {self.right} \n Parent: {self.parent} \n Balance: {self.balance}")
 
     def print(self):
-        left_str = self.left.to_string() if self.left is not None else "None"
-        right_str = self.right.to_string() if self.right is not None else "None"
-        parent_str = self.parent.to_string() if self.parent is not None else "None"
+        left_str = self.left.toString() if self.left is not None else "None"
+        right_str = self.right.toString() if self.right is not None else "None"
+        parent_str = self.parent.toString() if self.parent is not None else "None"
         print(f"Node Information:\n Data: {self.data} \n Left Child: {left_str} \n Right Child: {right_str} \n Parent: {parent_str} \n Balance: {self.balance}")
 
-    def to_string(self):
+    def toString(self):
         return str(self.data)
     
 

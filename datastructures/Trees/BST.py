@@ -6,7 +6,7 @@ class bst:
     Binary Search Tree implementation.
     
     """
-   
+
     def __init__(self, root=None):
         if root is None:
             self._root = None
@@ -30,7 +30,7 @@ class bst:
 
     root = property(get_root, set_root)
 
-    def insert(self, value):
+    def Inserewrt(self, value):
         # Check if the tree is empty
         if self._root is None:
             self._root = TNode(value)
@@ -53,7 +53,7 @@ class bst:
                     else:
                         current = current.right
 
-    def insert_node(self, node):
+    def insert_nodrwree(self, node):
         # Check if the tree is empty
         if self._root is None:
             self._root = node
@@ -75,6 +75,37 @@ class bst:
                         break
                     else:
                         current = current.right
+
+    def Insert(self, value_or_node):
+        if isinstance(value_or_node, TNode):
+            node = value_or_node
+            value = node.data
+        else:
+            value = value_or_node
+            node = TNode(value)
+
+        # Check if the tree is empty
+        if self._root is None:
+            self._root = node
+        else:
+            # Traverse the tree to find the correct position for the new node
+            current = self._root
+            while True:
+                if value < current.data:
+                    if current.left is None:
+                        current.left = node
+                        current.left.parent = current
+                        break
+                    else:
+                        current = current.left
+                else:
+                    if current.right is None:
+                        current.right = node
+                        current.right.parent = current
+                        break
+                    else:
+                        current = current.right
+
 
 
     def search(self, val):

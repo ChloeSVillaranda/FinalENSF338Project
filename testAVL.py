@@ -43,11 +43,11 @@ def test_avl_constructors():
 def test_balance():
     tree = avl()
  
-    tree.insert(1)
-    tree.insert(2)
-    tree.insert(3)
-    tree.insert(4)
-    tree.insert(5)
+    tree.Insert(1)
+    tree.Insert(2)
+    tree.Insert(3)
+    tree.Insert(4)
+    tree.Insert(5)
     
     assert tree.root.data == 2
     assert tree.root.left.data == 1
@@ -58,7 +58,7 @@ def test_balance():
     assert(tree.get_balance_factor(tree.root)) == 1 or -1 or 0
 
     # Perform left-right rotation
-    tree.insert(6)
+    tree.Insert(6)
 
     assert tree.root.data == 4
     assert tree.root.left.data == 2
@@ -71,7 +71,7 @@ def test_balance():
 
     # Perform right rotation
    
-    tree.insert(7)
+    tree.Insert(7)
     
     assert tree.root.data == 4
     assert tree.root.left.data == 2
@@ -85,7 +85,7 @@ def test_balance():
 
     # Perform right-left rotation
 
-    tree.insert(8)
+    tree.Insert(8)
 
     assert tree.root.data == 4
     assert tree.root.left.data == 2
@@ -99,7 +99,7 @@ def test_balance():
     assert(tree.get_balance_factor(tree.root)) == 1 or -1 or 0
  
     # Perform left rotation
-    tree.insert(9)
+    tree.Insert(9)
 
     assert tree.root.data == 4
     assert tree.root.left.data == 2
@@ -121,18 +121,18 @@ def test_avl_balancing():
     avl_tree = avl()
 
     # Insert nodes into the AVL tree
-    avl_tree.insert(10)
-    avl_tree.insert(20)
-    avl_tree.insert(30)
-    avl_tree.insert(40)
-    avl_tree.insert(50)
+    avl_tree.Insert(10)
+    avl_tree.Insert(20)
+    avl_tree.Insert(30)
+    avl_tree.Insert(40)
+    avl_tree.Insert(50)
 
-    # Check if the AVL tree is balanced after inserting nodes
+    # Check if the AVL tree is balanced after Inserting nodes
     assert avl_tree.get_balance_factor(avl_tree.root) == -1 or 1 or 0
 
     # Delete nodes from the AVL tree
-    avl_tree.delete(10)
-    avl_tree.delete(20)
+    avl_tree.Delete(10)
+    avl_tree.Delete(20)
 
     # Check if the AVL tree is balanced after deleting nodes
     assert avl_tree.get_balance_factor(avl_tree.root) == 0 or 1 or -1
@@ -144,17 +144,17 @@ def test_avl():
     print("Empty tree created successfully.")
 
     # Insert values into the AVL tree
-    avl_tree.insert(50)
-    avl_tree.insert(30)
-    avl_tree.insert(70)
-    avl_tree.insert(20)
-    avl_tree.insert(40)
-    avl_tree.insert(60)
-    avl_tree.insert(80)
+    avl_tree.Insert(50)
+    avl_tree.Insert(30)
+    avl_tree.Insert(70)
+    avl_tree.Insert(20)
+    avl_tree.Insert(40)
+    avl_tree.Insert(60)
+    avl_tree.Insert(80)
 
     # Verify that the AVL tree is balanced
     assert avl_tree.get_balance_factor(avl_tree.root) == 0 
-    print("Nodes inserted and tree balanced successfully.")
+    print("Nodes Inserted and tree balanced successfully.")
     
     # Verify that the inorder traversal of the AVL tree is correct
     print("\nTESTING PRINT IN ORDER")
@@ -169,7 +169,7 @@ def test_avl():
     avl_tree.printBF() 
 
     # Delete a node from the AVL tree
-    avl_tree.delete(20)
+    avl_tree.Delete(20)
 
     # Verify that the AVL tree is still balanced
     assert avl_tree.get_balance_factor(avl_tree.root) == 0

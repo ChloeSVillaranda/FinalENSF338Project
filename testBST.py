@@ -34,21 +34,21 @@ def test_case_1():
     root.print()
 
     # test the to_string method
-    assert root.to_string() == "10"
-    assert left_child.to_string() == "3"
-    assert right_child.to_string() == "7"
-    assert parent_node.to_string() == "15"
+    assert root.toString() == "10"
+    assert left_child.toString() == "3"
+    assert right_child.toString() == "7"
+    assert parent_node.toString() == "15"
 
 
     # Create a new BST
     bst1 = bst()
 
     # Insert some nodes
-    bst1.insert(5)
-    bst1.insert(3)
-    bst1.insert(7)
-    bst1.insert(1)
-    bst1.insert(9)
+    bst1.Insert(5)
+    bst1.Insert(3)
+    bst1.Insert(7)
+    bst1.Insert(1)
+    bst1.Insert(9)
 
     # Print the tree
     bst1.root.print()
@@ -116,16 +116,16 @@ def test_bst_setters_and_getters():
 
     print("All setter and getter tests passed!")
 
-def test_insert_node():
+def test_Insert_node():
     # Create a new tree
     tree = bst()
 
     # Insert some nodes into the tree
     nodes = [TNode(5), TNode(3), TNode(7), TNode(1), TNode(4), TNode(6), TNode(8)]
     for node in nodes:
-        tree.insert_node(node)
+        tree.Insert(node)
 
-    # Check that the nodes were inserted in the correct order
+    # Check that the nodes were Inserted in the correct order
     assert tree.root.data == 5
     assert tree.root.left.data == 3
     assert tree.root.right.data == 7
@@ -134,7 +134,7 @@ def test_insert_node():
     assert tree.root.right.left.data == 6
     assert tree.root.right.right.data == 8
 
-    print("All insert tests passed!")
+    print("All Insert tests passed!")
 
 
 
@@ -142,14 +142,14 @@ def test_bst_search():
     # create a new bst
     b = bst()
 
-    # insert some nodes
-    b.insert(5)
-    b.insert(3)
-    b.insert(7)
-    b.insert(2)
-    b.insert(4)
-    b.insert(6)
-    b.insert(8)
+    # Insert some nodes
+    b.Insert(5)
+    b.Insert(3)
+    b.Insert(7)
+    b.Insert(2)
+    b.Insert(4)
+    b.Insert(6)
+    b.Insert(8)
 
     # search for existing data
     node = b.search(4)
@@ -164,13 +164,13 @@ def test_bst_search():
 def test_bst_delete():
     # create a BST and add some nodes
     b = bst()
-    b.insert(5)
-    b.insert(3)
-    b.insert(8)
-    b.insert(1)
-    b.insert(4)
-    b.insert(7)
-    b.insert(9)
+    b.Insert(5)
+    b.Insert(3)
+    b.Insert(8)
+    b.Insert(1)
+    b.Insert(4)
+    b.Insert(7)
+    b.Insert(9)
 
     # test deleting a node that exists in the tree
     b.deleteNode(8)
@@ -200,30 +200,30 @@ def test_bst_printInOrder():
     b = bst()
     assert b.printInOrder() == []
     
-    b.insert(10)
+    b.Insert(10)
     assert b.printInOrder() == [10]
     
-    b.insert(5)
-    b.insert(20)
+    b.Insert(5)
+    b.Insert(20)
     assert b.printInOrder() == [5, 10, 20]
     
-    b.insert(3)
-    b.insert(7)
-    b.insert(15)
-    b.insert(25)
+    b.Insert(3)
+    b.Insert(7)
+    b.Insert(15)
+    b.Insert(25)
     assert b.printInOrder() == [3, 5, 7, 10, 15, 20, 25]
     print(" *** ALL TESTS PASSED ***\n")
 
 def test_bst_printBF():
     # create a BST and add some nodes
     b = bst()
-    b.insert(5)
-    b.insert(3)
-    b.insert(8)
-    b.insert(1)
-    b.insert(4)
-    b.insert(7)
-    b.insert(9)
+    b.Insert(5)
+    b.Insert(3)
+    b.Insert(8)
+    b.Insert(1)
+    b.Insert(4)
+    b.Insert(7)
+    b.Insert(9)
 
     # call printBF() and check the output
     expected_output = "5\n3 8\n1 4 7 9\n"
@@ -242,7 +242,7 @@ if __name__ == "__main__":
     print()
     test_bst_constructors()
     test_bst_setters_and_getters()
-    test_insert_node()
+    test_Insert_node()
     test_bst_search()
     test_bst_delete()
     test_bst_printInOrder()

@@ -23,7 +23,7 @@ class avl(bst):
         self.root = self.balance(self.root)
 
 
-    def insert(self, val):
+    def Insert(self, val):
         self.root = self._insert(self.root, val)
 
     def _insert(self, node, val):
@@ -53,7 +53,7 @@ class avl(bst):
 
         return node
 
-    def delete(self, val):
+    def Delete(self, val):
         self.root = self._delete(self.root, val)
 
     def _delete(self, node, val):
@@ -167,7 +167,7 @@ class avl(bst):
         node.right = self.right_rotation(node.right)
         return self.left_rotation(node)
 
-    def search(self, val):
+    def Search(self, val):
         return super().search(val)
 
     def printInOrder(self):
