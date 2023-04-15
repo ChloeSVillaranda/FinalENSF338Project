@@ -1,5 +1,6 @@
-from datastructures.Trees.BST import bst
-from datastructures.nodes.TNode import TNode
+from myLib.datastructures.Trees import * 
+from myLib.datastructures.Trees.BST import bst
+from myLib.datastructures.nodes.TNode import TNode
 
 
 

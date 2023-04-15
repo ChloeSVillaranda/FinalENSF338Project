@@ -1,5 +1,5 @@
-from datastructures.nodes.TNode import TNode
-from datastructures.Trees.AVL import avl
+from myLib.datastructures.nodes.TNode import TNode
+from myLib.datastructures.Trees.AVL import avl
 
 def test_avl_constructors():
 # create an AVL tree using the default constructor

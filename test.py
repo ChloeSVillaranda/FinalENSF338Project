@@ -1,0 +1,18 @@
+from myLib.datastructures.Linear.SLL import SinglyLinkedList
+from myLib.datastructures.nodes.SNode import SNode
+
+from myLib.tests import *
+
+
+# Create a linked list
+my_list = SinglyLinkedList()
+my_list.InsertHead(SNode(3))
+my_list.InsertHead(SNode(2))
+my_list.InsertHead(SNode(1))
+
+# Print the linked list
+#print(my_list.head.data)
+
+
+# Output:
+# 1 -> 2 -> 3 -> None

@@ -1,5 +1,9 @@
-from datastructures.Linear.SLL import SinglyLinkedList
-from datastructures.nodes.SNode import SNode
+from myLib.datastructures.Linear import *
+from myLib.datastructures.Linear.SLL import SinglyLinkedList
+from myLib.datastructures.nodes.SNode import SNode
+from .SLL import SinglyLinkedList
+
+
 class CircularSinglyLinkedList(SinglyLinkedList):
     def __init__(self, head=None):
         super().__init__(head)

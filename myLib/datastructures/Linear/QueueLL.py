@@ -1,4 +1,7 @@
-from datastructures.Linear.SLL import SinglyLinkedList
+from myLib.datastructures.Linear import *
+from myLib.datastructures.Linear.SLL import SinglyLinkedList
+from myLib.datastructures.nodes.SNode import SNode
+from .SLL import SinglyLinkedList
 
 class LLQueue(SinglyLinkedList):
     def __init__(self):

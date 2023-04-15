@@ -1,4 +1,9 @@
-from datastructures.Linear.DLL import DoublyLinkedList
+from myLib.datastructures.Linear import *
+from myLib.datastructures.Linear.DLL import DoublyLinkedList
+from myLib.datastructures.nodes.SNode import SNode
+from .DLL import DoublyLinkedList
+
+
 class CircularDoublyLinkedList(DoublyLinkedList):
     def __init__(self, head=None):
         self.head = head

@@ -1,5 +1,5 @@
-from datastructures.nodes.TNode import TNode
-from datastructures.Trees.BST import bst
+from myLib.datastructures.nodes.TNode import TNode
+from myLib.datastructures.Trees.BST import bst
 
 def test_case_1():
     # create a root node

@@ -1,3 +1,4 @@
+from myLib.datastructures.nodes import * 
 
 class TNode(object):
 
@@ -42,8 +43,6 @@ class TNode(object):
         self.balance = value
 
 # METHODS 
-    # def print(self):
-    #     print(f"Node Information:\n Data: {self.data} \n Left Child: {self.left} \n Right Child: {self.right} \n Parent: {self.parent} \n Balance: {self.balance}")
 
     def print(self):
         left_str = self.left.toString() if self.left is not None else "None"

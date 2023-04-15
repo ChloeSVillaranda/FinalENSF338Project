@@ -1,10 +1,10 @@
-from datastructures.Linear.SLL import SinglyLinkedList
-from datastructures.nodes.SNode import SNode
-from datastructures.Linear.DLL import DoublyLinkedList
-from datastructures.nodes.DNode import DNode
-from datastructures.Linear.CSLL import CircularSinglyLinkedList
-from datastructures.Linear.CDLL import CircularDoublyLinkedList
-from datastructures.Linear.QueueLL import LLQueue
+from myLib.datastructures.Linear.SLL import SinglyLinkedList
+from myLib.datastructures.nodes.SNode import SNode
+from myLib.datastructures.Linear.DLL import DoublyLinkedList
+from myLib.datastructures.nodes.DNode import DNode
+from myLib.datastructures.Linear.CSLL import CircularSinglyLinkedList
+from myLib.datastructures.Linear.CDLL import CircularDoublyLinkedList
+from myLib.datastructures.Linear.QueueLL import LLQueue
 import unittest
 
 class TestQueueLL(unittest.TestCase):

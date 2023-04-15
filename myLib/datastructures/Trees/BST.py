@@ -1,4 +1,5 @@
-from datastructures.nodes.TNode import TNode
+from myLib.datastructures.Trees import * 
+from myLib.datastructures.nodes.TNode import TNode
 from queue import Queue
 
 class bst:
@@ -6,7 +7,6 @@ class bst:
     Binary Search Tree implementation.
     
     """
-
     def __init__(self, root=None):
         if root is None:
             self._root = None

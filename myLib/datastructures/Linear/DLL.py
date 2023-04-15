@@ -1,3 +1,5 @@
+from myLib.datastructures.Linear import *
+
 class DoublyLinkedList:
     def __init__(self, head=None):
         self.head = head
