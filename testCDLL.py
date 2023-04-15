@@ -166,13 +166,16 @@ def test_sort_list():
 
     # Check that the list is sorted
     cll.Clear()
+    assert cdll.head is None
+    assert cdll.tail is None
+    assert cdll.size == 0
     cll.Print()
     assert cll.head == None
 
 
 
 def main():
-    # test_delete_node()
+    test_delete_node()
     test_sort_list()
 
 if __name__ == '__main__':
