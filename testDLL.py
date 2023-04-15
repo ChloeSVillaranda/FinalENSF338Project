@@ -8,6 +8,9 @@ from datastructures.Linear.CDLL import CircularDoublyLinkedList
 def test_doubly_linked_list():
     # Test InsertHead
     dll = DoublyLinkedList()
+    assert dll.head is None
+    assert dll.tail is None
+    assert dll.size == 0
     dll.InsertHead(DNode(1))
     assert dll.head.data == 1
     assert dll.tail.data == 1
@@ -173,13 +176,7 @@ def test_doubly_linked_list():
     dll.Print()
     dll.Sort()
     dll.Print()
-    # assert dll.head == n1
-    # assert dll.tail == n2
-    # assert n1.next == n2
-    # assert n2.prev == n1
-    # assert n1.prev is None
-    # assert n2.next is None
-
+    
     # Test Clear
     dll = DoublyLinkedList()
     n1 = DNode(1)

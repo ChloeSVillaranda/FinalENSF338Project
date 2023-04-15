@@ -10,6 +10,9 @@ from datastructures.Linear.CDLL import CircularDoublyLinkedList
 def test_SinglyLinkedList():
     # Test SinglyLinkedList.InsertHead() method
     list = SinglyLinkedList()
+    assert list.head is None
+    assert list.tail is None
+    assert list.size == 0
     list.InsertHead(SNode(1))
     assert list.head.data == 1
     assert list.tail.data == 1
@@ -105,12 +108,12 @@ def test_SinglyLinkedList():
     assert list.tail is None
     assert list.size == 0
 
-    # # Test SinglyLinkedList.Delete() method
-    # list = SinglyLinkedList()
-    # node1 = SNode(1)
-    # node2 = SNode(2)
-    # node3 = SNode(3)
-    # list.InsertHead(node1)
+    # Test SinglyLinkedList.Delete() method
+    list = SinglyLinkedList()
+    node1 = SNode(1)
+    node2 = SNode(2)
+    node3 = SNode(3)
+    list.InsertHead(node1)
 
 # Tests for Delete()
 def test_delete():
