@@ -9,9 +9,9 @@ setup(
         # For example, if your package requires NumPy and Pandas, you can list them like this:
         'queue'
     ],
-    author='Maham Jamal and Chloe Villaranda'
+    author='Maham Jamal and Chloe Villaranda',
     author_email='maham.jamal@ucalgary.ca',
-    description='library of datastructures',
+    description='library of datastructures including linear datastructures and trees',
     url='https://github.com/yourusername/myLib',
     )
 
