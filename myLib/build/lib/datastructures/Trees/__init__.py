@@ -1,2 +1,2 @@
-from .AVL import avl 
-from .BST import bst 
+from .AVL import AVL 
+from .BST import BST 
