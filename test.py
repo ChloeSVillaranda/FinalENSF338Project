@@ -1,3 +1,5 @@
+# making sure the package works via imports 
+
 from myLib.datastructures.Linear.SLL import SinglyLinkedList
 from myLib.datastructures.nodes.SNode import SNode
 from myLib.datastructures.Trees import *
